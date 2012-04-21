@@ -1,10 +1,5 @@
 $(document).ready(function() {
-
-    _.templateSettings = {
-        interpolate : /\{\{(.+?)\}\}/g,
-        evaluate : /\{!(.+?)!\}/g
-    };
-    /********************************************
+     /********************************************
      * Sign In / Sing Up models and views
      ********************************************/
     window.User = Backbone.RelationalModel.extend ({
@@ -34,6 +29,15 @@ $(document).ready(function() {
         },
 
         initialize: function() {
+
+            navigator.geolocation.getCurrentPosition(
+                function( position )
+                {
+                    window.user.set('latitude',position.coords.latitude);
+                    window.user.set('longitude',position.coords.longitude);
+                });
+
+
             callback_after = this.reloadPage;
         },
 
@@ -70,6 +74,7 @@ $(document).ready(function() {
         fbOnLogin: function() {
             FB.login(function(response) {
                 if (response.status == 'connected') {
+                    user.set('id', response.authResponse.userId);
                     window.user.set('firstName', 'Dima');
                 }
             });
