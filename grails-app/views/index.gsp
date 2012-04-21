@@ -7,7 +7,12 @@
 	</head>
 	<body>
     <script type="text/template" id="checkin-templ">
-        <div>TEST!!!</div>
+        <div>
+            {{checkin_id}}<br/>
+            {{message}} <br/>
+            {{page_id}} <br/>
+            {{timestamp}}
+        </div>
     </script>
 
 
@@ -34,7 +39,7 @@
 
                     </span>
                     <div>
-                       <h3> Please login to start using service: -   <div class="fb-login-button"   data-scope="email, publish_actions, publish_stream, user_checkins" data-onlogin="window.Auth.fbOnLogin();" style="display:inline;">Login with facebook</div></strong></a>
+                       <h3> Please login to start using service: -   <div class="fb-login-button"   data-scope="email, publish_actions, publish_stream, user_status, friends_status, user_checkins, friends_checkins" data-onlogin="window.Auth.fbOnLogin();" style="display:inline;">Login with facebook</div></strong></a>
                        </h3>
                     </div>
                        <%--<div class="fb-login-button" size="medium" data-show-faces="true" data-width="200" data-max-rows="1" ></div>
@@ -47,7 +52,7 @@
                         <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
                         <p><a class="btn" href="#">View details &raquo;</a></p>
                     </div><!--/span-->
-                    <div class="span3">
+                    <div class="span3" id="checkins">
                         <h2>Heading</h2>
                         <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
                         <p><a class="btn" href="#">View details &raquo;</a></p>
@@ -103,8 +108,6 @@
                 cookie     : true, // enable cookies to allow the server to access the session
                 xfbml      : true  // parse XFBML
             });
-
-            // Additional initialization code here
         };
 
         // Load the SDK Asynchronously
