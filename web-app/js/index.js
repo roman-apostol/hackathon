@@ -48,9 +48,8 @@ $(document).ready(function() {
         initFB: function(d){
             var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
             js = d.createElement('script'); js.id = id; js.async = true;
-            js.src = "//connect.facebook.net/"+
-                window.Common.getLocalized("lang")+"_"+
-                window.Common.getLocalized("LANG")
+            js.src = "//connect.facebook.net/"+"en"+"_"+
+                "EN"
                 +"/all.js";
             d.getElementsByTagName('head')[0].appendChild(js);
         },
