@@ -85,7 +85,7 @@ $(document).ready(function() {
         el: $('body'),
 
         events: {
-           // "click div [id^=drop-down]"    : "toggleDropDownState"
+            "click div [id^=drop-down]"    : "toggleDropDownState"
         },
 
         msToString: function(milliseconds) {

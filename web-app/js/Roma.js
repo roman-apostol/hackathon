@@ -185,7 +185,7 @@ $(document).ready(function() {
 
         checkinRetrieved: function(response) {
             var checkin = new Checkin(response);
-            console.log(checkin);
+           // console.log(checkin);
             var view = new CheckinView({model: checkin});
 
         },

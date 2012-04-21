@@ -20,7 +20,7 @@
         </div>
         <br />
     </script>
-    <div class="modal" id="locationModal" style="display:none;">
+    <div class="modal" id="locationModal" >
         <div class="modal-header">
             <a class="close" data-dismiss="modal">×</a>
             <h3>Enter your location...</h3>
@@ -30,7 +30,7 @@
         </div>
         <div class="modal-footer">
 
-            <a href="#" class="btn btn-primary">Yeh</a>
+            <a href="#" id="blocation" class="btn btn-primary">Yeh</a>
         </div>
     </div>
 
@@ -138,7 +138,7 @@
             <p>
                 {{place_id}}
                 <br />
-                {! if(ownerName) print(ownerName); else print("ovca");!}
+                {! if(ownerName) print(ownerName);!}
                 <a href="{{link}}">{{caption.substr(0,60)}}...[read more?]  </a>
 
 
