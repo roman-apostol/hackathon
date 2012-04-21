@@ -26,7 +26,7 @@ window.DimaView = Backbone.View.extend({
     initialize: function() {
         $("#locationModal").modal('hide');
 
-        user.bind("change:firstName", this.loggedIn, this)
+        user.bind("change:id", this.loggedIn, this)
     },
 
     loggedIn: function() {
@@ -35,10 +35,15 @@ window.DimaView = Backbone.View.extend({
         var self = this;
         FB.api(
             {
-                method: 'fql.query',
-                query: "SELECT src_big,caption,like_info,owner FROM photo WHERE object_id IN(SELECT id FROM location_post WHERE author_uid IN (SELECT uid2 FROM friend WHERE uid1=me()) and  timestamp > 1331143200 and "+
+                method: 'fql.multiquery',
+                queries: {
+                    query1: "SELECT id FROM location_post WHERE author_uid IN (SELECT uid2 FROM friend WHERE uid1=me()) and  timestamp > 1331143200 and "+
                     parseInt(window.user.get('latitude'))+"-latitude < 5 and "+
-                    parseInt(window.user.get('longitude'))+"-longitude < 5) order by like_info desc"
+                        parseInt(window.user.get('longitude'))+"-longitude < 5",
+
+                    query2:  "SELECT src_big,caption,like_info,owner FROM photo WHERE object_id IN (SELECT id from #query1) order by like_info desc limit 20"
+                }
+
 
 
             },
@@ -48,11 +53,13 @@ window.DimaView = Backbone.View.extend({
                 //console.log(window.user.get('latitude'));
                 //console.log(window.user.get('longitude'));
 
-                for(var i=0; i <response.length; i++)
+               /* for(var i=0; i <response.length; i++)
                 {
                     var ph_temp = new PhotoLoc({src:response[i].src_big, caption:response[i].caption,like_info:response[i].like_info});
                     window.photos.add(ph_temp);
-                }
+                }*/
+
+                window.photos.reset(response[1].fql_result_set);
                 self.render();
                 $("#loader").hide();
             }
@@ -63,7 +70,7 @@ window.DimaView = Backbone.View.extend({
         var self= this;
         $(self.el).html("");
         for(var j =0; j< photos.length;j++){
-            console.log(photos.models[j].get('src'));
+            console.log(photos.models[j].get('src_big'));
             $(self.el).append(self.template(photos.models[j].toJSON()));
         }
 
