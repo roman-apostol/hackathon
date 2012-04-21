@@ -31,15 +31,24 @@ grails.project.dependency.resolution = {
         //mavenRepo "http://repository.jboss.com/maven2/"
     }
     dependencies {
-        // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
-
-        // runtime 'mysql:mysql-connector-java:5.1.16'
+        runtime 'postgresql:postgresql:9.1-901.jdbc4'
+        compile 'net.java.dev.jets3t:jets3t:0.8.1'
+        compile 'org.springframework.social:spring-social-core:1.0.0.RELEASE'
+        compile 'org.springframework.social:spring-social-facebook:1.0.0.RELEASE'
+        compile 'org.springframework.social:spring-social-facebook-web:1.0.1.RELEASE'
+        compile 'org.codehaus.jackson:jackson-jaxrs:1.9.5'
     }
 
     plugins {
         runtime ":hibernate:$grailsVersion"
-        runtime ":jquery:1.7.1"
-        runtime ":resources:1.1.5"
+        runtime ":resources:1.1.6"
+        runtime ":cache-headers:1.1.5"
+        runtime ":cached-resources:1.0"
+        runtime ":zipped-resources:1.0"
+
+        compile ":database-migration:1.0"
+        compile ":lesscss-resources:1.0.1"
+        compile ":jaxrs:0.6"
 
         build ":tomcat:$grailsVersion"
     }
