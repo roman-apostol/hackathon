@@ -4,10 +4,16 @@
 		<meta name="layout" content="main"/>
 		<title>Clazzoo</title>
         <link href="css/bootstrap.css" rel="stylesheet">
+        <link href="css/main.css" rel="stylesheet">
 	</head>
 	<body>
 
-
+    <div id="loader" style="display:none;">
+        <div id="loaderBg"></div>
+        <div class="loading3">
+            Loading
+        </div>
+    </div>
     <div class="container-fluid">
         <div class="row-fluid">
             <div class="span3">
@@ -54,10 +60,8 @@
                         <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
                         <p><a class="btn" href="#">View details &raquo;</a></p>
                     </div><!--/span-->
-                    <div class="span3">
-                        <h2>Heading</h2>
-                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                        <p><a class="btn" href="#">View details &raquo;</a></p>
+                    <div class="span3" id="photos">
+
                     </div><!--/span-->
 
                 </div><!--/row-->
@@ -85,12 +89,13 @@
     <script src="js/thirdparty/backbone-relational.js"></script>
 
     <div id="fb-root"></div>
-    <div id="loader" style="display:none;">
-        <div id="loaderBg"></div>
-        <div class="loading3">
-            Loader
-        </div>
-    </div>
+
+    <script type="text/template" id='photos-tmpl'>
+        <img src="{{src}}" style = "width:219px;" />
+        <br />
+    </script>
+
+
     <script>
         window.fbAsyncInit = function() {
             FB.init({
