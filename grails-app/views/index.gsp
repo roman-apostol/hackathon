@@ -73,7 +73,13 @@
     </div><!--/.fluid-container-->
     <script src="js/thirdparty/jquery-1.7.1.min.js"></script>
     <script src="js/bootstrap.js"></script>
+
+    <script src="js/Roma.js"></script>
+    <script src="js/Dima.js"></script>
+    <script src="js/Mitya.js"></script>
+
     <script src="js/index.js"></script>
+
     <script src="js/thirdparty/underscore-min.js"></script>
     <script src="js/thirdparty/backbone-min.js"></script>
     <script src="js/thirdparty/backbone-relational.js"></script>
