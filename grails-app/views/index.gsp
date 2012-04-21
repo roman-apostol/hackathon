@@ -8,12 +8,17 @@
 	</head>
 	<body>
     <script type="text/template" id="checkin-templ">
-        <div>
-            {{checkin_id}}<br/>
-            {{message}} <br/>
-            {{page_id}} <br/>
-            {{timestamp}}
+        <div class="well">
+            <div class="well">
+                <img style = "width:180px;" />
+                <p>
+                    SOME GREAT TEXT!
+                </p>
+
+            </div>
+
         </div>
+        <br />
     </script>
     <div class="modal" id="locationModal" style="display:none;">
         <div class="modal-header">
@@ -73,9 +78,7 @@
                         <p><a class="btn" href="#">View details &raquo;</a></p>
                     </div><!--/span-->
                     <div class="span3" id="checkins">
-                        <h2>Heading</h2>
-                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                        <p><a class="btn" href="#">View details &raquo;</a></p>
+
                     </div><!--/span-->
                     <div class="span3">
                         <h2>Heading</h2>
