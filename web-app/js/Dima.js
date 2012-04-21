@@ -7,6 +7,18 @@ window.DimaView = Backbone.View.extend({
     },
 
     loggedIn: function() {
+        $("#loader").show();
+        FB.api(
+            {
+                method: 'fql.query',
+                query: "SELECT id, page_id FROM location_post WHERE author_uid IN (SELECT uid2 FROM friend WHERE uid1=me()) and  timestamp > 1331143200"
+            },
+            function(response) {
+                //alert('Your name is ' + response[0].name);
+                console.log(response[0]);
+                $("#loader").hide();
+            }
+        );
         console.log('dima view');
     }
 });
