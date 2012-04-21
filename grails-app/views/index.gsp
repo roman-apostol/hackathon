@@ -12,7 +12,7 @@
             <div class="well">
                 <img style = "width:180px;" />
                 <p>
-                    SOME GREAT TEXT!
+                    {{message}}
                 </p>
 
             </div>

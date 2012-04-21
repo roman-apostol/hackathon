@@ -121,6 +121,7 @@ $(document).ready(function() {
         model: Checkin
     });
 
+
     window.CheckinView = Backbone.View.extend({
         template: _.template($("#checkin-templ").html()),
 
@@ -130,7 +131,7 @@ $(document).ready(function() {
         }
     });
 
-    window.RomaView = Backbone.View.extend({
+    window.CheckinsColumn = Backbone.View.extend({
         el: $('#checkins'),
         checkins: null,
         pages: null,
@@ -142,8 +143,6 @@ $(document).ready(function() {
             this.checkins = new CheckinList;
             this.pages = new PageList;
             this.taggedUsers = new UserList;
-
-            this.checkins.bind('reset', this.checkinsReset, this);
         },
 
         retrieveInfo: function() {
@@ -187,15 +186,7 @@ $(document).ready(function() {
             var checkin = new Checkin(response);
             console.log(checkin);
             var view = new CheckinView({model: checkin});
-
-        },
-
-        checkinsReset: function() {
-            var self = this;
-            this.checkins.each(function(val) {
-                var view = new CheckinView({model: val});
-                $(self.el).append(view.render().el);
-            });
+            $(checkinsView.el).append(view.render().el);
         }
     });
 });

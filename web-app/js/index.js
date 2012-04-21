@@ -131,7 +131,7 @@ $(document).ready(function() {
 
     window.Common = new CommonView;
     window.Auth = new AuthView;
-    window.Roma = new RomaView;
+    window.checkinsView = new CheckinsColumn;
     window.Dima = new DimaView;
     window.Mitya = new MityaView;
 
