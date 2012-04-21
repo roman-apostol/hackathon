@@ -73,19 +73,24 @@
     </div><!--/.fluid-container-->
     <script src="js/thirdparty/jquery-1.7.1.min.js"></script>
     <script src="js/bootstrap.js"></script>
+
+    <script src="js/Roma.js"></script>
+    <script src="js/Dima.js"></script>
+    <script src="js/Mitya.js"></script>
+
     <script src="js/index.js"></script>
-    <%--<script src="../assets/js/bootstrap-alert.js"></script>
-    <script src="../assets/js/bootstrap-modal.js"></script>
-    <script src="../assets/js/bootstrap-dropdown.js"></script>
-    <script src="../assets/js/bootstrap-scrollspy.js"></script>
-    <script src="../assets/js/bootstrap-tab.js"></script>
-    <script src="../assets/js/bootstrap-tooltip.js"></script>
-    <script src="../assets/js/bootstrap-popover.js"></script>
-    <script src="../assets/js/bootstrap-button.js"></script>
-    <script src="../assets/js/bootstrap-collapse.js"></script>
-    <script src="../assets/js/bootstrap-carousel.js"></script>
-    <script src="../assets/js/bootstrap-typeahead.js"></script>--%>
+
+    <script src="js/thirdparty/underscore-min.js"></script>
+    <script src="js/thirdparty/backbone-min.js"></script>
+    <script src="js/thirdparty/backbone-relational.js"></script>
+
     <div id="fb-root"></div>
+    <div id="loader" style="display:none;">
+        <div id="loaderBg"></div>
+        <div class="loading3">
+            Loader
+        </div>
+    </div>
     <script>
         window.fbAsyncInit = function() {
             FB.init({
