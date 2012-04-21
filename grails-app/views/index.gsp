@@ -6,7 +6,9 @@
         <link href="css/bootstrap.css" rel="stylesheet">
 	</head>
 	<body>
-
+    <script type="text/template" id="checkin-templ">
+        <div>TEST!!!</div>
+    </script>
 
     <div class="container-fluid">
         <div class="row-fluid">
@@ -31,7 +33,7 @@
 
                     </span>
                     <div>
-                       <h3> Please login to start using service: -   <div class="fb-login-button"   data-scope="email, publish_actions, publish_stream" data-onlogin="window.Auth.fbOnLogin();" style="display:inline;">Login with facebook</div></strong></a>
+                       <h3> Please login to start using service: -   <div class="fb-login-button"   data-scope="email, publish_actions, publish_stream, user_checkins" data-onlogin="window.Auth.fbOnLogin();" style="display:inline;">Login with facebook</div></strong></a>
                        </h3>
                     </div>
                        <%--<div class="fb-login-button" size="medium" data-show-faces="true" data-width="200" data-max-rows="1" ></div>
@@ -101,7 +103,8 @@
                 xfbml      : true  // parse XFBML
             });
 
-            // Additional initialization code here
+            console.log('before get login status')
+
         };
 
         // Load the SDK Asynchronously

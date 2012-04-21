@@ -4,14 +4,12 @@ $(document).ready(function() {
         interpolate : /\{\{(.+?)\}\}/g,
         evaluate : /\{!(.+?)!\}/g
     };
-
-
-
     /********************************************
      * Sign In / Sing Up models and views
      ********************************************/
     window.User = Backbone.RelationalModel.extend ({
         defaults:{
+            id: null,
             firstName:null,
             lastName: null
         },
@@ -19,7 +17,6 @@ $(document).ready(function() {
         getFullName: function() {
             return this.get('firstName') + ' ' + this.get('lastName');
         }
-
     });
 
     window.UserList = Backbone.Collection.extend({
@@ -44,10 +41,7 @@ $(document).ready(function() {
             window.location.reload();
         },
 
-
-
         initFB: function(d){
-
             var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
             js = d.createElement('script'); js.id = id; js.async = true;
             js.src = "//connect.facebook.net/"+
@@ -60,25 +54,24 @@ $(document).ready(function() {
         fbAsyncInit: function(response) {
 
             FB.init({
-                appId      : 	367045423345977,//'295135127226100',//'256216657794884',
+                appId      : 	367045423345977,
                 status     : true,
                 cookie     : true,
                 xfbml      : true,
                 oauth      : true,
                 expires    : 60*24*60
             });
+
+            FB.getLoginStatus(function(response) {
+                user.set('id', response.authResponse.userId);
+            }, true);
         },
 
         fbOnLogin: function() {
-
-            FB.login(function(response){
+            FB.login(function(response) {
                 if (response.status == 'connected') {
-
-                    //
                     window.user.set('firstName', 'Dima');
-                    console.log(user.get('firstName'));
-                    }
-
+                }
             });
         }
     });
@@ -86,19 +79,9 @@ $(document).ready(function() {
 
     window.CommonView = Backbone.View.extend ({
         el: $('body'),
-        currentUser:null,
 
         events: {
            // "click div [id^=drop-down]"    : "toggleDropDownState"
-        },
-
-
-        hideLoader: function() {
-            $('#loader').hide();
-        },
-
-        showLoader: function() {
-            $('#loader').show();
         },
 
         msToString: function(milliseconds) {
