@@ -4,6 +4,7 @@
 		<meta name="layout" content="main"/>
 		<title>Clazzoo</title>
         <link href="css/bootstrap.css" rel="stylesheet">
+        <link href="css/main.css" rel="stylesheet">
 	</head>
 	<body>
     <script type="text/template" id="checkin-templ">
@@ -14,8 +15,26 @@
             {{timestamp}}
         </div>
     </script>
+    <div class="modal" id="locationModal" style="display:none;">
+        <div class="modal-header">
+            <a class="close" data-dismiss="modal">×</a>
+            <h3>Enter your location...</h3>
+        </div>
+        <div class="modal-body">
+            <p>Please enter the city you wanna to visit…</p>
+        </div>
+        <div class="modal-footer">
 
+            <a href="#" class="btn btn-primary">Yeh</a>
+        </div>
+    </div>
 
+    <div id="loader" style="display:none;">
+        <div id="loaderBg"></div>
+        <div class="loading3">
+            Loading
+        </div>
+    </div>
     <div class="container-fluid">
         <div class="row-fluid">
             <div class="span3">
@@ -32,6 +51,7 @@
                         <li><a href="#">paul Tarjan</a></li>
                     </ul>
                 </div><!--/.well -->
+                <iframe width="290" height="300" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=50.453732+30.51&amp;aq=&amp;sll=37.0625,-95.677068&amp;sspn=39.644047,92.988281&amp;ie=UTF8&amp;t=p&amp;ll=50.453733,30.509977&amp;spn=0.016395,0.025749&amp;z=14&amp;output=embed"></iframe><br /><small><a href="http://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=50.453732+30.51&amp;aq=&amp;sll=37.0625,-95.677068&amp;sspn=39.644047,92.988281&amp;ie=UTF8&amp;t=p&amp;ll=50.453733,30.509977&amp;spn=0.016395,0.025749&amp;z=14" style="color:#0000FF;text-align:left">View Larger Map</a></small>
             </div><!--/span-->
             <div class="span9">
                 <div class="hero-unit" style="text-align: center;">
@@ -62,10 +82,8 @@
                         <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
                         <p><a class="btn" href="#">View details &raquo;</a></p>
                     </div><!--/span-->
-                    <div class="span3">
-                        <h2>Heading</h2>
-                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                        <p><a class="btn" href="#">View details &raquo;</a></p>
+                    <div class="span3" id="photos">
+
                     </div><!--/span-->
 
                 </div><!--/row-->
@@ -93,12 +111,21 @@
     <script src="js/thirdparty/backbone-relational.js"></script>
 
     <div id="fb-root"></div>
-    <div id="loader" style="display:none;">
-        <div id="loaderBg"></div>
-        <div class="loading3">
-            Loader
+
+
+
+
+    <script type="text/template" id='photos-tmpl'>
+        <div class="well">
+            <p>
+            {{caption}}  - {{like_info.like_count}}
+            </p>
+            <img src="{{src}}" style = "width:180px;" />
         </div>
-    </div>
+        <br />
+    </script>
+
+
     <script>
         window.fbAsyncInit = function() {
             FB.init({
