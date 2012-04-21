@@ -113,7 +113,7 @@
     <script type="text/template" id='photos-tmpl'>
         <div class="well">
             <p>
-            {{caption}}  - {{like_info.like_count}}
+            {{caption.substr(0,60)}}  - {{like_info.like_count}}
             </p>
             <img src="{{src}}" style = "width:180px;" />
         </div>
