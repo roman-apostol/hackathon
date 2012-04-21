@@ -32,7 +32,6 @@ grails.project.dependency.resolution = {
     }
     dependencies {
         runtime 'postgresql:postgresql:9.1-901.jdbc4'
-        compile 'net.java.dev.jets3t:jets3t:0.8.1'
         compile 'org.springframework.social:spring-social-core:1.0.0.RELEASE'
         compile 'org.springframework.social:spring-social-facebook:1.0.0.RELEASE'
         compile 'org.springframework.social:spring-social-facebook-web:1.0.1.RELEASE'
@@ -48,7 +47,6 @@ grails.project.dependency.resolution = {
 
         compile ":database-migration:1.0"
         compile ":lesscss-resources:1.0.1"
-        compile ":jaxrs:0.6"
 
         build ":tomcat:$grailsVersion"
     }

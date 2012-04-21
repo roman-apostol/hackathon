@@ -58,6 +58,8 @@ grails.exceptionresolver.params.exclude = ['password']
 
 // enable query caching by default
 grails.hibernate.cache.queries = true
+grails.app.context='/'
+
 
 // set per-environment serverURL stem for creating absolute links
 environments {
