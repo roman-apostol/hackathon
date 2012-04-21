@@ -34,6 +34,15 @@ $(document).ready(function() {
         },
 
         initialize: function() {
+
+            navigator.geolocation.getCurrentPosition(
+                function( position )
+                {
+                    window.user.set('latitude',position.coords.latitude);
+                    window.user.set('longitude',position.coords.longitude);
+                });
+
+
             callback_after = this.reloadPage;
         },
 

@@ -6,7 +6,8 @@ $(document).ready(function() {
 
     window.PhotoLoc = Backbone.RelationalModel.extend ({
         defaults:{
-            src:null
+            src:null,
+            caption: null
             //lastName: null
         }
 
@@ -22,25 +23,33 @@ window.DimaView = Backbone.View.extend({
     template: _.template($('#photos-tmpl').html()),
 
     initialize: function() {
+        $("#locationModal").modal('hide');
+
         user.bind("change:firstName", this.loggedIn, this)
     },
 
     loggedIn: function() {
         $("#loader").show();
+        $("#locationModal").modal('hide');
         var self = this;
         FB.api(
             {
                 method: 'fql.query',
-                query: "SELECT src_big FROM photo WHERE object_id IN(SELECT id FROM location_post WHERE author_uid IN (SELECT uid2 FROM friend WHERE uid1=me()) and  timestamp > 1331143200 ) limit 10",
+                query: "SELECT src_big,caption,like_info,owner FROM photo WHERE object_id IN(SELECT id FROM location_post WHERE author_uid IN (SELECT uid2 FROM friend WHERE uid1=me()) and  timestamp > 1331143200 and "+
+                    parseInt(window.user.get('latitude'))+"-latitude < 5 and "+
+                    parseInt(window.user.get('longitude'))+"-longitude < 5) limit 10"
+
 
             },
             function(response) {
+
                 //alert('Your name is ' + response[0].name);
-                //console.log(response.length);
+                //console.log(window.user.get('latitude'));
+                //console.log(window.user.get('longitude'));
 
                 for(var i=0; i <response.length; i++)
                 {
-                    var ph_temp = new PhotoLoc({src:response[i].src_big});
+                    var ph_temp = new PhotoLoc({src:response[i].src_big, caption:response[i].caption,like_info:like_info});
                     window.photos.add(ph_temp);
                 }
                 self.render();
@@ -53,9 +62,7 @@ window.DimaView = Backbone.View.extend({
         var self= this;
         $(self.el).html("");
         for(var j =0; j< photos.length;j++){
-
-
-            console.log(photos.models[j].get('src'));
+            //console.log(photos.models[j].get('src'));
             $(self.el).append(self.template(photos.models[j].toJSON()));
         }
 
