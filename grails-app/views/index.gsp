@@ -7,6 +7,9 @@
         <link href="css/main.css" rel="stylesheet">
 	</head>
 	<body>
+    <script type="text/template" id="checkin-templ">
+        <div>TEST!!!</div>
+    </script>
 
     <div id="loader" style="display:none;">
         <div id="loaderBg"></div>
@@ -37,7 +40,7 @@
 
                     </span>
                     <div>
-                       <h3> Please login to start using service: -   <div class="fb-login-button"   data-scope="email, publish_actions, publish_stream,user_about_me,	friends_about_me ,user_location,user_photos	,friends_photos,	friends_location" data-onlogin="window.Auth.fbOnLogin();" style="display:inline;">Login with facebook</div></strong></a>
+                       <h3> Please login to start using service: -   <div class="fb-login-button"   data-scope="email, publish_actions, publish_stream, user_checkins" data-onlogin="window.Auth.fbOnLogin();" style="display:inline;">Login with facebook</div></strong></a>
                        </h3>
                     </div>
                        <%--<div class="fb-login-button" size="medium" data-show-faces="true" data-width="200" data-max-rows="1" ></div>
