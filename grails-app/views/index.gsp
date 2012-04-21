@@ -10,6 +10,7 @@
         <div>TEST!!!</div>
     </script>
 
+
     <div class="container-fluid">
         <div class="row-fluid">
             <div class="span3">
@@ -103,8 +104,7 @@
                 xfbml      : true  // parse XFBML
             });
 
-            console.log('before get login status')
-
+            // Additional initialization code here
         };
 
         // Load the SDK Asynchronously
