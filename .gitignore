@@ -1,0 +1,10 @@
+*.iml
+*.war
+.idea/
+.classpath
+.DS_Store
+.project
+.settings
+stacktrace.log
+target
+out
