@@ -81,7 +81,7 @@
 
     </script>
 
-    <div class="hero-unit"><div class="container"><div class="row"><div class="span12 centered"><h1>Best suggestions for places to go</h1><h2> ⋅  Open APIs  ⋅  Client based logic ⋅  Built for 24 hours</h2></div></div></div></div>
+    <div class="hero-unit"><div class="container"><div class="row"><div class="span12 centered"><h1>Best suggestions for places to go</h1><h2> ⋅  Open APIs  ⋅  Client based implementation ⋅  Built in 24 hours</h2></div></div></div></div>
     <div class="container content">
         <div class="section no-bg">
             <div class="row">
@@ -93,7 +93,7 @@
                 <div class="span6">
                     <div class="inset">
                         <h2>What is Clazzoo?</h2>
-                        <p>It's a hack project, built for 24 hours on Facebook hackoton. Based on your and your friends activity on facebook, it suggests places to visit in selected city. By default in your current city</p>
+                        <p>It's a hack project, built in 24 hours at Facebook Hackathon. It suggests places to visit in selected city based on yours and your friends activities on facebook.</p>
                     </div>
                 </div>
             </div>
@@ -115,7 +115,7 @@
             </div>
         </div>
         <div class="section external-apis">
-            <h2>Technologies used by Clazzoo</h2>
+            <h2>Our technologgy stack</h2>
             <ul class="thumbnails thumbnails-gray">
                 <li class="span1">
                     <a class="thumbnail" href="https://github.com/roman-apostol/hackathon"><img src="/images/api-github.jpg" alt="GitHub"/></a>
@@ -140,7 +140,7 @@
 
         <hr>
     <div id="map_canvas" style="width:100%; height:100%;top:0px;left:0px;" <%--style="display: none;"--%>></div>
-        <div class="footer footer-btm"><div class="fill"><div class="container"><div class="row"><div class="span4 offset4"><p class="centered"> Clazzoo &mdash; Facebook hackaton 2012</p></div></div></div></div></div>
+        <div class="footer footer-btm"><div class="fill"><div class="container"><div class="row"><div class="span4 offset4"><p class="centered"> Clazzoo &mdash; Facebook Hackathon 2012</p></div></div></div></div></div>
 
     <script src="js/thirdparty/jquery-1.7.1.min.js"></script>
     <script src="js/bootstrap.js"></script>
