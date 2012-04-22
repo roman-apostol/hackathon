@@ -18,7 +18,9 @@ $(document).ready(function() {
     });
 
     window.MityaView = Backbone.View.extend({
-        el: $('#places'),
+        el: $('body'),
+        totalRender: 0,
+
         initialize: function() {
             var df1 = $.Deferred(), df2 = $.Deferred(), df3 = $.Deferred(),
                 whenAll = $.when(df1, df2, df3), self = this;
@@ -43,7 +45,7 @@ $(document).ready(function() {
         processPlaces: function() {
             var addressToken, address = '', searchRequests = [], self = this;
 
-            jQuery(this.el).empty();
+            $('#places').empty();
             jQuery(document).bind('searchRequestsDequeue', function () {
                 setTimeout(searchRequests.pop(), 100);
             });
@@ -87,19 +89,16 @@ $(document).ready(function() {
                                     ),
                                     rankby: 'distance',
                                     radius: Common.RADIUS,
-                                    keyword: eventData.location,
                                     language:'en'
                                 }, function (results, status) {
                                     if (status == google.maps.places.PlacesServiceStatus.OK) {
                                         var view = new PlaceView();
-                                        console.log(results[0]);
                                         view.json = {
-
                                             place : results[0],
                                             friends : friendsOnEvent,
                                             eid: eventData.eid
                                         };
-                                        $(self.el).append(view.render().el);
+                                        Common.getNextColumn().append(view.render().el);
                                         Common.renderPanoramioPlugin(results[0].geometry.location.Za, results[0].geometry.location.$a, eventData.eid, Common.epsilon);
                                     };
 

@@ -19,25 +19,39 @@
                 <div id="panoramio{{id}}" ></div>
             </h4>
 
-            <h4>Friends</h4>
-            <div class="thumbnails">
-                <a class="thumbnail">
-                    <img src='https://graph.facebook.com/{{from.id}}/picture'>
-                </a>
-                {! for (var i in tags.data) { !}
-                <a class="thumbnail">
-                    <img src='https://graph.facebook.com/{{tags.data[i].id}}/picture'>
-                </a>
-                {! } !}
+            <div class="row">
+                <div class="span3">
+                    <h4>Friends</h4>
+                    <div class="thumbnails">
+                        <a class="thumbnail">
+                            <img src='https://graph.facebook.com/{{from.id}}/picture'>
+                        </a>
+                        {! for (var i in tags.data) { !}
+                        <a class="thumbnail">
+                            <img src='https://graph.facebook.com/{{tags.data[i].id}}/picture'>
+                        </a>
+                        {! } !}
+                    </div>
+                </div>
+                <div class="span1">
+                    {! if (likes) { !}
+                    <h4>Likes</h4>
+                    <p>{{likes.data.length}}</p>
+                    {! } !}
+                </div>
             </div>
-           </p>
+
         </div>
+
         <br />
+        <%--<hr   style="color:white;height: 15px;line-width:0px;border:0px;
+    background: #fff url(/images/separator.gif) no-repeat scroll center;"/>--%>
+
     </script>
     <script type="text/template" id="place-templ">
         <div class="entry">
 
-            <h3>{{place.name}}</h3>
+            <h3><a href="https://facebook.com/{{eid}}" >{{place.name}}</a></h3>
             <h4>
                 <div id="panoramio{{eid}}" ></div>
             </h4>
@@ -62,6 +76,9 @@
                 </div>
             </div>
         </div>
+        <%--<hr   style="color:white;height: 15px;line-width:0px;border:0px;
+    background: #fff url(/images/separator.gif) no-repeat scroll center;"/>--%>
+
     </script>
 
     <div id="loader" style="display:none;">
@@ -111,7 +128,6 @@
         </div>
     </div>
     <div id="map"></div>
-        <hr>
     <div id="map_canvas" style="width:100%; height:100%;top:0px;left:0px;" <%--style="display: none;"--%>></div>
         <div class="footer footer-btm"><div class="fill"><div class="container"><div class="row"><div class="span4 offset4"><p class="centered"> Clazzoo &mdash; Facebook hackaton 2012</p></div></div></div></div></div>
 
@@ -133,12 +149,17 @@
     <script type="text/template" id='photos-tmpl'>
 
         <div class="entry">
-            <h3>{{loc_name}}</h3>
+            <h3><a href="https://facebook.com/{{object_id}}" >{{loc_name}}</a></h3>
             <h4>
                 <img class="photo" src="{{src_big}}"/>
             </h4>
+
             <h4>Address</h4>
             <p>{{address}}</p>
+            <h4>
+                Comment
+            </h4>
+            {{caption.substr(0,80)}}<a href="https://facebook.com/{{object_id}}" > . . . ⏎</a>
             <div class="row">
                 <div class="span3">
                     <h4>Friends</h4>
@@ -154,9 +175,12 @@
                     <p>{{like_info.like_count}}</p>
                     {! } !}
                 </div>
+
             </div>
         </div>
-        <br />
+    <%--    <hr   style="color:white;height: 15px;line-width:0px;border:0px;
+    background: #fff url(/images/separator.gif) no-repeat scroll center;"/>--%>
+
     </script>
 
 

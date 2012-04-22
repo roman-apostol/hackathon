@@ -226,21 +226,28 @@ $(document).ready(function() {
                 response.tags.data = [];
             }
 
-            view.json = response;
-            $(checkinsView.el).append(view.render().el);
+            placesServices.search(
+                {
+                    location: new google.maps.LatLng(
+                        response.place.location.latitude,
+                        response.place.location.longitude
+                    ),
+                    rankby: 'distance',
+                    radius: Common.RADIUS,
+                    keyword: response.place.name,
+                    language:'en'
+                }, function (results, status) {
+                    if (status == google.maps.places.PlacesServiceStatus.OK) {
+                        view.json = response;
+                        view.json.address = results[0];
+                        if (!response.likes) {
+                            response.likes = null;
+                        }
+                        Common.getNextColumn().append(view.render().el);
 
-            var myRequest = new panoramio.PhotoRequest({
-                'rect': {'sw': {'lat': response.place.location.latitude - epsilon, 'lng': response.place.location.longitude - epsilon },
-                'ne': {'lat': response.place.location.latitude + epsilon, 'lng': response.place.location.longitude + epsilon }}
-            });
-
-            var myOptions = {
-                'width': 300,
-                'height': 250
-            };
-
-            var widget = new panoramio.PhotoWidget('panoramio'+ response.id, myRequest, myOptions);
-            widget.setPosition(0);
+                        Common.renderPanoramioPlugin(response.place.location.latitude, response.place.location.longitude, response.id, Common.epsilon);
+                    };
+                });
         },
 
         bottomReached: function() {

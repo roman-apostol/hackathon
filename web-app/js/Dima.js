@@ -3,8 +3,7 @@ $(document).ready(function() {
         interpolate : /\{\{(.+?)\}\}/g,
         evaluate : /\{!(.+?)!\}/g
     };
-    var geocoder;
-    var map;
+
     window.PhotoLoc = Backbone.RelationalModel.extend ({
         defaults:{
             first:true,
@@ -16,7 +15,7 @@ $(document).ready(function() {
             link:null,
             loc_name:null,
             address:null
-            //lastName: null
+
         }
 
     });
@@ -28,30 +27,50 @@ $(document).ready(function() {
 window.DimaView = Backbone.View.extend({
     el: $("#photos"),
 
-    //template: _.template($('#photos-tmpl').html()),
-
     initialize: function() {
-        //$("#locationModal").modal('hide');
+        //EASTER EGG
+        $("body").keypress(function(event) {
+            if ( event.which == 49 || event.which == 50 || event.which == 51) {
 
+                event.preventDefault();
+                $('.panoramio-wapi-img').wrap('<div class="masked-image" />');
+                $('.panoramio-wapi-img').css('background-color','white');
+                $('.panoramio-wapi-images').css('background-color','white');
+                $('.panoramio-wapi-img').each(function(index) {
+
+
+                    $(this).after('<div class="cookie-cutter" style=" position: absolute;left:0; top:0;width:'+$(this).width()+'px;height:'+$(this).height()+'px;background: url(/images/mask'+event.which+'.png) no-repeat;background-size:'+ $(this).width()+'px '+$(this).height()+'px;"></div>');
+                });
+
+                $('.photo').wrap('<div class="masked-image" style="position: relative;width: 300px;" />');
+                $('.photo').css('background-color','white');
+                $('.photo').css('background-color','white');
+                $('.photo').each(function(index) {
+
+
+                    $(this).after('<div class="cookie-cutter" style=" position: absolute;left:0; top:0;width:'+$(this).width()+'px;height:'+$(this).height()+'px;background: url(/images/mask'+event.which+'.png) no-repeat;background-size:'+ $(this).width()+'px '+$(this).height()+'px;"></div>');
+                });
+            }
+
+
+        });
         user.bind("change:id", this.loggedIn, this)
 
     },
 
 
     loggedIn: function() {
-        //$("#loader").show();
-
-        //$("#pzd").show();
 
         var self = this;
         FB.api(
             {
                 method: 'fql.multiquery',
                 queries: {
+                    //get all posts with location
                     query1: "SELECT id,tagged_uids FROM location_post WHERE author_uid IN (SELECT uid2 FROM friend WHERE uid1=me()) and  timestamp > 1322719200 and ("+
                     parseInt(window.user.get('latitude'))+"-latitude) < 1 and (latitude-"+parseInt(window.user.get('latitude'))+")<1 and ("+
                         parseInt(window.user.get('longitude'))+"-longitude) < 1 and (longitude-"+parseInt(window.user.get('longitude'))+")<1 limit 300",
-
+                    //get all photos
                     query2:  "SELECT src_height,src_width,place_id,album_object_id,object_id	,link,src_big,caption,like_info,owner FROM photo WHERE object_id IN (SELECT id from #query1 ) order by like_info desc limit 10"
                 }
 
@@ -59,36 +78,33 @@ window.DimaView = Backbone.View.extend({
 
             },
             function(response) {
-                //console.log("What ?" + response[1]);
-                //console.log(response[0]);
+
                 if(typeof response[1] != 'undefined'){
                     window.photos.reset(response[1].fql_result_set);
                 }
                 else{
-
+                //todo
                 }
 
                 self.render();
-                $("#loader").hide();
+
             }
         );
-       // console.log('dima view');
+
     }     ,
     render: function() {
-        var  searchRequests = [],searchModels = [], self = this;
+        var  searchRequests = [], self = this;
 
         jQuery(this.el).empty();
         jQuery(document).bind('searchRequestsDequeue', function () {
 
             setTimeout(searchRequests.pop(), 100);
         });
+
         $(self.el).html("");
 
         for(var j =0; j< photos.length && j < 120;j++){
-            //console.log(photos.models[j].get('src_big'));
 
-
-            //var  newView = window.DimaSinglePhotoView;
             if(photos.models[j].get('first'))
             {
                 var referencer = photos.models[j];
@@ -102,8 +118,8 @@ window.DimaView = Backbone.View.extend({
                     },
 
                     function(response) {
-                        //console.log(response[0].fql_result_set);
-                        for(var rrr =0; rrr< photos.length && rrr < 120;rrr++){
+
+                        for(var rrr =0; rrr< photos.length; rrr++){
                             if(photos.models[rrr].get('owner') == response[0].fql_result_set[0].uid)
                             {
                                 photos.models[rrr].set('first',false);
@@ -112,26 +128,22 @@ window.DimaView = Backbone.View.extend({
                                 photos.models[rrr].set('ownerName',response[0].fql_result_set[0].name);
                                 photos.models[rrr].set('pic_small',response[0].fql_result_set[0].pic_small);
                                 photos.models[rrr].set('loc_name',response[1].fql_result_set[0].name);
-                                //console.log(response[1].fql_result_set[0].latitude+ " "+response[1].fql_result_set[0].longitude+" "+response[1].fql_result_set[0].page_id);
 
-                                searchModels.push(photos.models[rrr]);
                                 searchRequests.push((function (model) {
-                                    //console.log(model);
+
                                     placesServices.search(
                                         {
                                             location: new google.maps.LatLng(
                                                 response[1].fql_result_set[0].latitude,
                                                 response[1].fql_result_set[0].longitude
                                             ),
-                                            //rankby: 'distance'
+
                                             radius: 1000//Common.RADIUS
-                                            //keyword: eventData.location
+
                                         }, function (results, status) {
                                             if (status == google.maps.places.PlacesServiceStatus.OK) {
-
-
                                                 model.set('address',results[0].vicinity);
-                                                $(self.el).append((new window.DimaSinglePhotoView({model:model})).render().el);//self.template(photos.models[j].toJSON()));
+                                                Common.getNextColumn().append((new window.DimaSinglePhotoView({model:model})).render().el);//self.template(photos.models[j].toJSON()));
                                                 //model.trigger('change');
 
                                             }

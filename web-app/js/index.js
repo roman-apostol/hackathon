@@ -19,7 +19,7 @@ $(document).ready(function() {
     });
 
     window.user = new User;
-    window.placesServices = new google.maps.places.PlacesService(map);
+
     window.AuthView = Backbone.View.extend ({
         el: $('body'),
         model: user,
@@ -51,6 +51,7 @@ $(document).ready(function() {
         },
 
         fbAsyncInit: function(response) {
+            var self= this;
             this.getPos();
             FB.init({
                 appId      : 	window.appId,
@@ -60,7 +61,6 @@ $(document).ready(function() {
                 oauth      : true,
                 expires    : 60*24*60
             });
-            var self= this;
             FB.getLoginStatus(function(response) {
                 if(response.authResponse){
                     $("#facebook-login").hide();
@@ -78,7 +78,7 @@ $(document).ready(function() {
                 if (response.status == 'connected') {
                     //$(".hero-unit").hide();
                     $("#facebook-login").hide();
-
+                    window.location.reload();
                     user.set('id', response.authResponse.userId);
 
                 }
@@ -103,6 +103,9 @@ $(document).ready(function() {
     window.CommonView = Backbone.View.extend ({
         RADIUS: 50000, //meters
         epsilon: 0.0009,
+        checkinsTotal: 0,
+        eventsTotal: 0,
+        postsTotal: 0,
 
         getDistanceBetweenLatLng: function (lat1, lng1, lat2, lng2) {
             return 6400000 * Math.acos(
@@ -122,7 +125,7 @@ $(document).ready(function() {
 
         },
         changeMask:function(){
-          $(".cookie-cutter").css('background-image', 'url(images/mask3.png)');
+            $(".cookie-cutter").css('background-image', 'url(images/mask3.png)');
         },
         changeMask2:function(){
             $(".cookie-cutter").css('background-image', 'url(images/mask2.png)');
@@ -134,10 +137,27 @@ $(document).ready(function() {
         {
             $("#locationModal").hide();
         },
-        locate : function()
-        {
-         var city = $("#city-selector").val();
-         this.geocode(city);
+        locate : function() {
+            this.checkinsTotal = 0;
+            this.postsTotal = 0;
+            this.eventsTotal = 0;
+            var city = $("#city-selector").val();
+            this.geocode(city);
+            //$("#locationModal").modal('hide');
+            //   $("#locationModal").hide();
+        },
+
+        getNextColumn: function() {
+            if (this.checkinsTotal <= this.postsTotal && this.checkinsTotal <= this.eventsTotal) {
+                this.checkinsTotal++;
+                return $('#checkins');
+            } else if (this.postsTotal <= this.checkinsTotal && this.postsTotal <= this.eventsTotal) {
+                this.postsTotal++;
+                return $('#photos');
+            } else {
+                this.eventsTotal++;
+                return $('#places');
+            }
         },
 
         glocate : function()
@@ -182,7 +202,7 @@ $(document).ready(function() {
         renderPanoramioPlugin: function(latitude, longitude, id, epsilon) {
             var myRequest = new panoramio.PhotoRequest({
                 'rect': {'sw': {'lat': latitude - epsilon, 'lng': longitude - epsilon },
-                    'ne': {'lat': latitude + epsilon, 'lng': longitude + epsilon }}
+                'ne': {'lat': latitude + epsilon, 'lng': longitude + epsilon }}
             });
 
             var myOptions = {
@@ -191,7 +211,7 @@ $(document).ready(function() {
             };
 
             var widget = new panoramio.PhotoWidget('panoramio'+ id, myRequest, myOptions);
-            widget.setPosition(0);
+            widget.setPosition(Math.floor(Math.random()*11));
             $('.panoramio-wapi-tos').each(function(i,val){$(val).hide()});
         },
 
@@ -231,7 +251,9 @@ $(document).ready(function() {
                     }
                 } );
             });
-        }
+        },
+
+
 
     });
 
@@ -241,8 +263,8 @@ $(document).ready(function() {
         center: latlng,
         mapTypeId: google.maps.MapTypeId.ROADMAP
     }
-    map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-
+    window.map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+    window.placesServices = new google.maps.places.PlacesService(window.map);
 
     window.Common = new CommonView;
     window.Auth = new AuthView;

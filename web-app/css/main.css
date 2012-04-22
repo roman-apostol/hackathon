@@ -77,12 +77,21 @@ z-index:10000;
 
 .masked-image {
     position: relative;
-    width: 150px;
+    width: 300px;
 }
 
 .cookie-cutter {
     position: absolute;
     left:0; top:0;
-    //width: 150px; height: 150px;
-    background: url(/images/mask2.png) no-repeat;
+    width: 300px;
+    height: 150px;
+    background: url(/images/mask49.png) no-repeat;
+}
+
+.photoItem{
+    border-style:dashed;
+    border-bottom-color: #808080;
+    border-width:1px;
+}
+
 }
