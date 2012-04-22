@@ -16,7 +16,11 @@
                 {! if (tags.data.length) { !}
                 {! print('with'); !}
                     {! for (var i in tags.data) { !}
-                    {! if (i > 0) {print ('and')}; print(tags.data[i].name); !}
+                    {! if (i > 0) {print ('and'); !}
+                        {!print("<a href='https://facebook.com/' "); print(tags.data[i].id); print("/picture?type=small' style='width: 40px;'/>");!}
+                            {{tags.data[i].name}}
+                        </a>
+                    {! } !}
                 {! }} !}
                     </h5> <h5>at <a href="http://facebook.com/{{place.id}}">{{place.name}}</a></h5>
             </span>
