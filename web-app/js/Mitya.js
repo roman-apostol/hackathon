@@ -10,14 +10,14 @@ $(document).ready(function() {
 
     var placesServices = new google.maps.places.PlacesService(map);
 
-    window.PlaceView = Backbone.View.extend({
+/*    window.PlaceView = Backbone.View.extend({
         template: _.template($("#place-templ").html()),
 
         render: function() {
             $(this.el).html(this.template(this.model.toJSONFull()));
             return this;
         }
-    });
+    });*/
 
     window.MityaView = Backbone.View.extend({
         initialize: function() {

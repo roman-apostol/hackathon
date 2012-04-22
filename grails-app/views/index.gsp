@@ -20,13 +20,18 @@
         </div>
         <br />
     </script>
+    <div id="map_canvas" style="width:10%; height:10%"></div>
     <div class="modal" id="locationModal" >
         <div class="modal-header">
             <a class="close" data-dismiss="modal">×</a>
             <h3>Enter your location...</h3>
         </div>
         <div class="modal-body">
-            <p>Please enter the city you wanna to visit…</p>
+            <h3>Please enter the city you wanna to visit…</h3>
+            
+            <input type="text" id="city"/>
+            <h3>Or let us take your current position!</h3>
+            <a href="#" id="glocation" class="btn btn-primary">Where am I?</a>
         </div>
         <div class="modal-footer">
 
@@ -40,7 +45,7 @@
             Loading
         </div>
     </div>
-    <div class="container-fluid">
+    <div class="container-fluid" id = "pzd" style="display: none;">
         <div class="row-fluid">
             <div class="span3">
                 <div class="well sidebar-nav">

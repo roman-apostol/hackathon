@@ -30,12 +30,6 @@ $(document).ready(function() {
 
         initialize: function() {
 
-            navigator.geolocation.getCurrentPosition(
-                function( position )
-                {
-                    window.user.set('latitude',position.coords.latitude);
-                    window.user.set('longitude',position.coords.longitude);
-                });
 
 
             callback_after = this.reloadPage;
@@ -67,14 +61,16 @@ $(document).ready(function() {
 
             FB.getLoginStatus(function(response) {
                 user.set('id', response.authResponse.userId);
+                $(".hero-unit").hide();
             }, true);
         },
 
         fbOnLogin: function() {
             FB.login(function(response) {
                 if (response.status == 'connected') {
+                    $(".hero-unit").hide();
                     user.set('id', response.authResponse.userId);
-                    window.user.set('firstName', 'Dima');
+
                 }
             });
         }
@@ -85,7 +81,23 @@ $(document).ready(function() {
         el: $('body'),
 
         events: {
-            "click div [id^=drop-down]"    : "toggleDropDownState"
+            "click #blocation"    : "locate",
+            "click #glocation"    : "glocate"
+        },
+        locate : function()
+        {
+         var city = $("#city").val();
+         window.Dima.geocode(city);
+         $("#locationModal").modal('hide');
+            $("#locationModal").hide();
+        },
+
+        glocate : function()
+        {
+
+            window.Dima.getPos();
+            $("#locationModal").modal('hide');
+            $("#locationModal").hide();
         },
 
         msToString: function(milliseconds) {

@@ -3,7 +3,8 @@ $(document).ready(function() {
         interpolate : /\{\{(.+?)\}\}/g,
         evaluate : /\{!(.+?)!\}/g
     };
-
+    var geocoder;
+    var map;
     window.PhotoLoc = Backbone.RelationalModel.extend ({
         defaults:{
             first:true,
@@ -30,30 +31,86 @@ window.DimaView = Backbone.View.extend({
     initialize: function() {
         //$("#locationModal").modal('hide');
 
-        user.bind("change:id", this.loggedIn, this)
+        //user.bind("change:id", this.loggedIn, this)
+        geocoder = new google.maps.Geocoder();
+        var latlng = new google.maps.LatLng(-34.397, 150.644);
+        var myOptions = {
+            zoom: 8,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+    },
+    getPos: function(){
+        var self=this;
+        console.log("hello");
+        navigator.geolocation.getCurrentPosition(
+            function( position )
+            {
+                window.user.set('latitude',position.coords.latitude);
+                window.user.set('longitude',position.coords.longitude);
+
+                window.user.set('firstName', 'Dima');
+                self.loggedIn();
+                //console.log(position.coords.latitude);
+                //console.log(position.coords.longitude);
+            });
 
     },
+    geocode: function(address)
+    {
+            var self = this;
+            geocoder.geocode( { 'address': address}, function(results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    map.setCenter(results[0].geometry.location);
+                    var marker = new google.maps.Marker({
+                        map: map,
+                        position: results[0].geometry.location
+                    });
 
+                    console.log(results[0].geometry.location.$a);
+                    console.log(results[0].geometry.location.Za);
+                    window.user.set('latitude', results[0].geometry.location.Za);
+                    window.user.set('longitude',results[0].geometry.location.$a);
+
+                    window.user.set('firstName', 'Dima');
+
+                    self.loggedIn();
+
+                } else {
+                    alert("Geocode was not successful for the following reason: " + status);
+                }
+            });
+
+    }    ,
     loggedIn: function() {
-        $("#loader").show();
+        //$("#loader").show();
+        $("#pzd").show();
         //$("#locationModal").modal('hide');
         var self = this;
         FB.api(
             {
                 method: 'fql.multiquery',
                 queries: {
-                    query1: "SELECT id,tagged_uids FROM location_post WHERE author_uid IN (SELECT uid2 FROM friend WHERE uid1=me()) and  timestamp > 1331143200 and "+
-                    parseInt(window.user.get('latitude'))+"-latitude < 5 and "+
-                        parseInt(window.user.get('longitude'))+"-longitude < 5",
+                    query1: "SELECT id,tagged_uids FROM location_post WHERE author_uid IN (SELECT uid2 FROM friend WHERE uid1=me()) and  timestamp > 1322719200 and ("+
+                    parseInt(window.user.get('latitude'))+"-latitude) < 1 and ("+
+                        parseInt(window.user.get('longitude'))+"-longitude) < 1 limit 300",
 
-                    query2:  "SELECT place_id,album_object_id,object_id	,link,src_big,caption,like_info,owner FROM photo WHERE object_id IN (SELECT id from #query1 ) order by like_info desc limit 200"
+                    query2:  "SELECT place_id,album_object_id,object_id	,link,src_big,caption,like_info,owner FROM photo WHERE object_id IN (SELECT id from #query1 ) order by like_info desc limit 10"
                 }
 
 
 
             },
             function(response) {
-                window.photos.reset(response[1].fql_result_set);
+                //console.log(response[1]);
+                //console.log(response[0]);
+                if(typeof response[1] != 'undefined'){
+                    window.photos.reset(response[1].fql_result_set);
+                }
+                else{
+
+                }
                 self.render();
                 $("#loader").hide();
             }
@@ -129,14 +186,14 @@ window.DimaView = Backbone.View.extend({
 
 
         initialize: function() {
-            this.model.bind('change', this.render, this);
+            this.model.bind('change:firstName', this.render, this);
         },
 
         render: function() {
             //$(this.el).html();
 
             $(this.el).html(this.template(this.model.toJSON()));
-            console.log($(this.el));
+
              return this;
         }
 
