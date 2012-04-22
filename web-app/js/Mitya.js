@@ -56,7 +56,7 @@ $(document).ready(function() {
                     query3: 'SELECT eid, name, venue, location FROM event WHERE eid IN ( SELECT eid FROM #query2) ORDER BY start_time'
                 }
             },  function(response) {
-                var placesServices = new google.maps.places.PlacesService(map);
+
                 var locationProcessed = [];
                 response[2].fql_result_set.forEach(function(eventData) {
                     var friendsOnEvent = [];
@@ -87,11 +87,14 @@ $(document).ready(function() {
                                     ),
                                     rankby: 'distance',
                                     radius: Common.RADIUS,
-                                    keyword: eventData.location
+                                    keyword: eventData.location,
+                                    language:'en'
                                 }, function (results, status) {
                                     if (status == google.maps.places.PlacesServiceStatus.OK) {
                                         var view = new PlaceView();
+                                        console.log(results[0]);
                                         view.json = {
+
                                             place : results[0],
                                             friends : friendsOnEvent,
                                             eid: eventData.eid

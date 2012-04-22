@@ -75,7 +75,7 @@
             </div>
         </div>
     </script>
-    <div id="map_canvas" style="width:10%; height:10%" style="display: none;"></div>
+    <div id="map_canvas" style="width:10%; height:10%" <%--style="display: none;"--%>></div>
     <div id="loader" style="display:none;">
         <div id="loaderBg"></div>
         <div class="loading3">
