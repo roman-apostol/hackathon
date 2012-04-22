@@ -29,14 +29,11 @@
         <div class="modal-body">
             <h3>Please enter the city you wanna to visit…</h3>
             
-            <input type="text" id="city"/>
+            <input type="text" id="city" style="display:inline;"/>     <a href="#" id="blocation" class="btn btn-primary" style="display:inline;">Yeh</a>
             <h3>Or let us take your current position!</h3>
             <a href="#" id="glocation" class="btn btn-primary">Where am I?</a>
         </div>
-        <div class="modal-footer">
 
-            <a href="#" id="blocation" class="btn btn-primary">Yeh</a>
-        </div>
     </div>
 
     <div id="loader" style="display:none;">
@@ -142,9 +139,9 @@
                 </td></tr></tbody></table>
             {!  } !}
             <p>
-                {{place_id}}
+                <%--{{place_id}}--%>
                 <br />
-                {! if(ownerName) print(ownerName);!}
+                <strong>{! if(ownerName) {print('<img src='+pic_small+' />'); print(ownerName);} !}</strong>
                 <a href="{{link}}">{{caption.substr(0,60)}}...[read more?]  </a>
 
 

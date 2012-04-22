@@ -43,7 +43,7 @@ window.DimaView = Backbone.View.extend({
     },
     getPos: function(){
         var self=this;
-        console.log("hello");
+        //console.log("hello");
         navigator.geolocation.getCurrentPosition(
             function( position )
             {
@@ -186,7 +186,7 @@ window.DimaView = Backbone.View.extend({
 
 
         initialize: function() {
-            this.model.bind('change:firstName', this.render, this);
+            this.model.bind('change', this.render, this);
         },
 
         render: function() {

@@ -58,10 +58,15 @@ $(document).ready(function() {
                 oauth      : true,
                 expires    : 60*24*60
             });
-
+            var self= this;
             FB.getLoginStatus(function(response) {
-                user.set('id', response.authResponse.userId);
-                $(".hero-unit").hide();
+                if(response.authResponse){
+                    user.set('id', response.authResponse.userId);
+                    $(".hero-unit").hide();
+                }else{
+                    self.fbOnLogin();
+                }
+
             }, true);
         },
 
@@ -82,7 +87,12 @@ $(document).ready(function() {
 
         events: {
             "click #blocation"    : "locate",
-            "click #glocation"    : "glocate"
+            "click #glocation"    : "glocate",
+            "click .close"    : "close"
+        },
+        close: function()
+        {
+            $("#locationModal").hide();
         },
         locate : function()
         {

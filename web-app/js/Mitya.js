@@ -33,7 +33,7 @@ $(document).ready(function() {
 
             FB.api ({
                 method: 'fql.query',
-                query: "SELECT name, venue, location FROM event WHERE eid in (SELECT eid from event_member WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 = me()) AND rsvp_status = 'attending' AND start_time > 0 ) ORDER BY start_time LIMIT 100"
+                query: "SELECT name, venue, location FROM event WHERE eid in (SELECT eid from event_member WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 = me()) AND rsvp_status = 'attending' AND start_time > 0 ) ORDER BY start_time LIMIT 10"
             },  function(response) {
                 response.forEach(function(eventData) {
                     if (eventData.venue.longitude && eventData.venue.latitude && eventData.location) {
