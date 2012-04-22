@@ -163,7 +163,7 @@
         <div class="well">
             <div class="masked-image">
             <img src="{{src_big}}" style = "width:150px;" />
-            <div class="cookie-cutter">
+            <div class="cookie-cutter" style="width:150px;height:{! print(parseInt(150*(src_height/src_width))) !} px;background-size: 150px {! print(parseInt(150*(src_height/src_width)))!}px; ">
             </div>
             </div>
             {! if(like_info.can_like) { !}

@@ -27,12 +27,30 @@ $(document).ready(function() {
     window.MityaView = Backbone.View.extend({
         el: $('#places'),
         initialize: function() {
+            var df1 = $.Deferred(), df2 = $.Deferred(), df3 = $.Deferred(),
+                whenAll = $.when(df1, df2, df3), self = this;
             // FIXME change:id, which id?
-            user.bind("change:id", this.loggedIn, this)
+            user.bind("change:id", function (argument) {
+                df1.resolve();
+            }, this)
+            user.bind("change:longitude", function () {
+                df2.resolve();
+            }, this)
+            user.bind("change:latitude", function () {
+                df3.resolve();
+            }, this)
+            whenAll.done(function () {
+                user.bind("change:longitude", function () {
+                    self.processPlaces();
+                }, this)
+                self.processPlaces();
+            });
         },
 
-        loggedIn: function() {
+        processPlaces: function() {
             var addressToken, address = '', searchRequests = [], self = this;
+
+            jQuery(this.el).empty();
             jQuery(document).bind('searchRequestsDequeue', function () {
                 setTimeout(searchRequests.pop(), 100);
             });
@@ -51,6 +69,12 @@ $(document).ready(function() {
                     if (eventData.venue.longitude
                     && eventData.venue.latitude
                     && eventData.location
+                    && Common.getDistanceBetweenLatLng(
+                        eventData.venue.latitude,
+                        eventData.venue.longitude,
+                        window.user.get('latitude'),
+                        window.user.get('longitude')
+                    ) < Common.RADIUS
                     && !locationProcessed.hasOwnProperty(eventData.location.trim())) {
                         locationProcessed[eventData.location.trim()]  = true;
 
@@ -68,7 +92,7 @@ $(document).ready(function() {
                                         eventData.venue.longitude
                                     ),
                                     rankby: 'distance',
-                                    radius: 50000,
+                                    radius: Common.RADIUS,
                                     keyword: eventData.location
                                 }, function (results, status) {
                                     if (status == google.maps.places.PlacesServiceStatus.OK) {

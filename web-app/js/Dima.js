@@ -51,7 +51,7 @@ window.DimaView = Backbone.View.extend({
                     parseInt(window.user.get('latitude'))+"-latitude) < 1 and ("+
                         parseInt(window.user.get('longitude'))+"-longitude) < 1 limit 300",
 
-                    query2:  "SELECT place_id,album_object_id,object_id	,link,src_big,caption,like_info,owner FROM photo WHERE object_id IN (SELECT id from #query1 ) order by like_info desc limit 10"
+                    query2:  "SELECT src_height,src_width,place_id,album_object_id,object_id	,link,src_big,caption,like_info,owner FROM photo WHERE object_id IN (SELECT id from #query1 ) order by like_info desc limit 10"
                 }
 
 
