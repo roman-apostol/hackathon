@@ -87,12 +87,10 @@ $(document).ready(function() {
                                     ),
                                     rankby: 'distance',
                                     radius: Common.RADIUS,
-                                    keyword: eventData.location,
                                     language:'en'
                                 }, function (results, status) {
                                     if (status == google.maps.places.PlacesServiceStatus.OK) {
                                         var view = new PlaceView();
-                                        console.log(results[0]);
                                         view.json = {
 
                                             place : results[0],
