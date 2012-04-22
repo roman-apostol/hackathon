@@ -19,7 +19,7 @@ $(document).ready(function() {
     });
 
     window.user = new User;
-
+    window.placesServices = new google.maps.places.PlacesService(map);
     window.AuthView = Backbone.View.extend ({
         el: $('body'),
         model: user,
