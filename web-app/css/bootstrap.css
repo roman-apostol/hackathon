@@ -1886,10 +1886,12 @@ table .span24 {
   border-radius: 4px;
 }
 .well {
+
+  width:300px;
   min-height: 20px;
-  padding: 19px;
+  padding: 5px;
   margin-bottom: 20px;
-  background-color: white;//#f5f5f5;
+  background-color: #f5f5f5;
   border: 1px solid #eee;
   border: 1px solid rgba(0, 0, 0, 0.05);
   -webkit-border-radius: 4px;

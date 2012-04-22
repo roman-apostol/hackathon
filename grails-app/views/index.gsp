@@ -32,12 +32,13 @@
             </div>
            </p>
         </div>
+
         <br />
     </script>
     <script type="text/template" id="place-templ">
         <div class="entry">
 
-            <h3>{{place.name}}</h3>
+            <h3><a href="https://facebook.com/{{eid}}" >{{place.name}}</a></h3>
             <h4>
                 <div id="panoramio{{eid}}" ></div>
             </h4>
@@ -180,7 +181,7 @@
     <script type="text/template" id='photos-tmpl'>
 
         <div class="entry">
-            <h3>{{loc_name}}</h3>
+            <h3><a href="https://facebook.com/{{object_id}}" >{{loc_name}}</a></h3>
             <h4>
                 <img class="photo" src="{{src_big}}"/>
             </h4>

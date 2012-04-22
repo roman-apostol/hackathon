@@ -42,6 +42,14 @@ window.DimaView = Backbone.View.extend({
                     $(this).after('<div class="cookie-cutter" style=" position: absolute;left:0; top:0;width:'+$(this).width()+'px;height:'+$(this).height()+'px;background: url(/images/mask'+event.which+'.png) no-repeat;background-size:'+ $(this).width()+'px '+$(this).height()+'px;"></div>');
                 });
 
+                $('.photo').wrap('<div class="masked-image" style="position: relative;width: 300px;" />');
+                $('.photo').css('background-color','white');
+                $('.photo').css('background-color','white');
+                $('.photo').each(function(index) {
+
+
+                    $(this).after('<div class="cookie-cutter" style=" position: absolute;left:0; top:0;width:'+$(this).width()+'px;height:'+$(this).height()+'px;background: url(/images/mask'+event.which+'.png) no-repeat;background-size:'+ $(this).width()+'px '+$(this).height()+'px;"></div>');
+                });
             }
 
 
