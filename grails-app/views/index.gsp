@@ -81,12 +81,6 @@
 
     </script>
 
-    <div id="loader" style="display:none;">
-        <div id="loaderBg"></div>
-        <div class="loading3">
-            Loading
-        </div>
-    </div>
     <div class="hero-unit"><div class="container"><div class="row"><div class="span12 centered"><h1>Best suggestions for places to go</h1><h2> ⋅  Open APIs  ⋅  Client based logic ⋅  Built for 24 hours</h2></div></div></div></div>
     <div class="container content">
         <div class="section no-bg">
@@ -100,6 +94,15 @@
             </div>
         </div>
         <div class="section">
+
+            <div id="loader" style="text-align:center;display:none;">
+                <div class="loading3">
+                    Loading
+                </div>
+            </div>
+
+
+
             <div class="row">
                 <div class="span4" id="checkins"></div>
                 <div class="span4" id="places"></div>
@@ -122,6 +125,7 @@
         </div>
     </div>
     <div class="container-fluid" id = "pzd" >
+
         <div class="row-fluid">
 
             <div id="map"></div>
