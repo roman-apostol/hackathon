@@ -105,7 +105,7 @@
                     Loading
                 </div>
             </div>
-
+            <div id="facebook-login"><h2> Please,  <div class="fb-login-button"   data-scope="email, publish_actions, publish    ↪ _stream, user_status, friends_status, user_checkins, friends_checkins,friends_photos, user_photos, user_events, friends_eve    ↪ nts" data-onlogin="window.Auth.fbOnLogin();" style="display:inline;">Login with facebook</div></h2></strong></a></div>
 
 
             <div class="row">
