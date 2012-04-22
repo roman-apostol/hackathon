@@ -34,6 +34,9 @@
         </div>
 
         <br />
+        <%--<hr   style="color:white;height: 15px;line-width:0px;border:0px;
+    background: #fff url(/images/separator.gif) no-repeat scroll center;"/>--%>
+
     </script>
     <script type="text/template" id="place-templ">
         <div class="entry">
@@ -63,6 +66,9 @@
                 </div>
             </div>
         </div>
+        <%--<hr   style="color:white;height: 15px;line-width:0px;border:0px;
+    background: #fff url(/images/separator.gif) no-repeat scroll center;"/>--%>
+
     </script>
 
     <div id="loader" style="display:none;">
@@ -107,22 +113,7 @@
     </div>
     <div class="container-fluid" id = "pzd" >
         <div class="row-fluid">
-            <div class="span3">
-                <div class="well sidebar-nav">
-                    <ul class="nav nav-list">
-                        <li class="nav-header">Kyiv</li>
-                        <li class="active"><a href="#">Dmytro Voloshyn</a></li>
-                        <li><a href="#">Taras Galkovsky</a></li>
-                        <li><a href="#">paul Tarjan</a></li>
 
-                        <li class="nav-header">Places nearby</li>
-                        <li class="active" id="instagr3"><a href="#">Dmytro Voloshyn</a></li>
-                        <li><a href="#" id="instagr2">Taras Galkovsky</a></li>
-                        <li><a href="#" id="instagr" >paul Tarjan</a></li>
-                    </ul>
-                </div><!--/.well -->
-               <%-- <iframe width="290" height="300" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=50.453732+30.51&amp;aq=&amp;sll=37.0625,-95.677068&amp;sspn=39.644047,92.988281&amp;ie=UTF8&amp;t=p&amp;ll=50.453733,30.509977&amp;spn=0.016395,0.025749&amp;z=14&amp;output=embed"></iframe><br /><small><a href="http://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=50.453732+30.51&amp;aq=&amp;sll=37.0625,-95.677068&amp;sspn=39.644047,92.988281&amp;ie=UTF8&amp;t=p&amp;ll=50.453733,30.509977&amp;spn=0.016395,0.025749&amp;z=14" style="color:#0000FF;text-align:left">View Larger Map</a></small>--%>
-            </div><!--/span-->
             <div id="map"></div>
             <div class="span9">
                 <div class="hero-unit" style="text-align: center;">
@@ -185,8 +176,13 @@
             <h4>
                 <img class="photo" src="{{src_big}}"/>
             </h4>
+
             <h4>Address</h4>
             <p>{{address}}</p>
+            <h4>
+                Comment
+            </h4>
+            {{caption.substr(0,80)}}<a href="https://facebook.com/{{object_id}}" > . . . ⏎</a>
             <div class="row">
                 <div class="span3">
                     <h4>Friends</h4>
@@ -202,9 +198,12 @@
                     <p>{{like_info.like_count}}</p>
                     {! } !}
                 </div>
+
             </div>
         </div>
-        <br />
+    <%--    <hr   style="color:white;height: 15px;line-width:0px;border:0px;
+    background: #fff url(/images/separator.gif) no-repeat scroll center;"/>--%>
+
     </script>
 
 
