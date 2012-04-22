@@ -53,7 +53,7 @@ $(document).ready(function() {
         fbAsyncInit: function(response) {
             this.getPos();
             FB.init({
-                appId      : 	367045423345977,
+                appId      : 	window.appId,
                 status     : true,
                 cookie     : true,
                 xfbml      : true,

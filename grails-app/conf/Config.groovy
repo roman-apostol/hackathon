@@ -65,10 +65,15 @@ grails.app.context='/'
 environments {
     development {
         grails.logging.jul.usebridge = true
+        fb.app.id="367045423345977"
+        fb.app.secret="26803b24e909a91f001efeb9c7f8dbb5"
     }
     production {
         grails.logging.jul.usebridge = false
-        // TODO: grails.serverURL = "http://www.changeme.com"
+
+        fb.app.id="346612582054030"
+        fb.app.secret="ecd2ded6ede572c1bdb974d16632f992"
+        grails.serverURL = "http://clazzoo.com"
     }
 }
 
