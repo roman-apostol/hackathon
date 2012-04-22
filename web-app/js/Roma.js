@@ -243,9 +243,7 @@ $(document).ready(function() {
                         if (!response.likes) {
                             response.likes = null;
                         }
-                        console.log(response);
                         Common.getNextColumn().append(view.render().el);
-                        console.log(response)
 
                         Common.renderPanoramioPlugin(response.place.location.latitude, response.place.location.longitude, response.id, Common.epsilon);
                     };
