@@ -192,8 +192,10 @@ $(document).ready(function() {
         },
 
         checkinRetrieved: function(response) {
+            var epsilon = 0.0009;
             checkinsView.numRetrieved += 1;
             if (checkinsView.numRetrieved == checkinsView.numRetrieving) {
+                $('.panoramio-wapi-tos').each(function(i,val){$(val).hide()});
                 checkinsView.retrieving = false;
                 checkinsView.numRetrieved = 0;
                 checkinsView.numRetrieving = 0;
@@ -220,6 +222,19 @@ $(document).ready(function() {
 
             view.json = response;
             $(checkinsView.el).append(view.render().el);
+
+            var myRequest = new panoramio.PhotoRequest({
+                'rect': {'sw': {'lat': response.place.location.latitude - epsilon, 'lng': response.place.location.longitude - epsilon },
+                'ne': {'lat': response.place.location.latitude + epsilon, 'lng': response.place.location.longitude + epsilon }}
+            });
+
+            var myOptions = {
+                'width': 200,
+                'height': 200
+            };
+
+            var widget = new panoramio.PhotoWidget('panoramio'+ response.id, myRequest, myOptions);
+            widget.setPosition(0);
         },
 
         bottomReached: function() {

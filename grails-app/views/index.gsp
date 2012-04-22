@@ -9,6 +9,7 @@
 	<body>
     <script type="text/template" id="checkin-templ">
         <div class="well">
+            <div id="panoramio{{id}}" >PISIA</div>
 
             <img src="https://graph.facebook.com/{{from.id}}/picture?type=large" style="width:80px">
             {! for (var i in tags.data) { !}
@@ -58,6 +59,7 @@
         </ul>
     </script>
     <div id="map_canvas" style="width:10%; height:10%" style="display: none;"></div>
+    
     <div class="modal" id="locationModal" style="display:none;">
         <div class="modal-header">
             <a class="close" data-dismiss="modal">×</a>
@@ -216,8 +218,11 @@
             ref.parentNode.insertBefore(js, ref);
         }(document));
     </script>
-        <script type="text/javascript"
-            src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false">
-        </script>
+    <script type="text/javascript"
+        src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false">
+    </script>
+    <script type="text/javascript"
+        src="http://www.panoramio.com/wapi/wapi.js?v=1">
+    </script>
     </body>
 </html>
