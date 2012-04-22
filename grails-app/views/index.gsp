@@ -63,7 +63,7 @@
             </div>
         </div>
     </script>
-    <div id="map_canvas" style="width:10%; height:10%" <%--style="display: none;"--%>></div>
+
     <div id="loader" style="display:none;">
         <div id="loaderBg"></div>
         <div class="loading3">
@@ -159,7 +159,7 @@
         </div><!--/row-->
 
         <hr>
-
+    <div id="map_canvas" style="width:100%; height:100%;top:0px;left:0px;" <%--style="display: none;"--%>></div>
         <div class="footer footer-btm"><div class="fill"><div class="container"><div class="row"><div class="span4 offset4"><p class="centered"> Clazzoo &mdash; Facebook hackaton 2012</p></div></div></div></div></div>
 
     <script src="js/thirdparty/jquery-1.7.1.min.js"></script>
@@ -191,7 +191,7 @@
                     <h4>Friends</h4>
                     <div class="thumbnails">
                         <a class="thumbnail">
-                            <img src="{{pic_small}}" alt="{{ownerName}}" />
+                            <img src="https://graph.facebook.com/{{uid}}/picture" alt="{{ownerName}}" />
                         </a>
                     </div>
                 </div>

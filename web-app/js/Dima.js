@@ -87,7 +87,7 @@ window.DimaView = Backbone.View.extend({
         for(var j =0; j< photos.length && j < 120;j++){
             //console.log(photos.models[j].get('src_big'));
 
-            $(self.el).append((new window.DimaSinglePhotoView({model:photos.models[j]})).render().el);//self.template(photos.models[j].toJSON()));
+
             //var  newView = window.DimaSinglePhotoView;
             if(photos.models[j].get('first'))
             {
@@ -108,6 +108,7 @@ window.DimaView = Backbone.View.extend({
                             {
                                 photos.models[rrr].set('first',false);
 
+                                photos.models[rrr].set('uid',response[0].fql_result_set[0].uid);
                                 photos.models[rrr].set('ownerName',response[0].fql_result_set[0].name);
                                 photos.models[rrr].set('pic_small',response[0].fql_result_set[0].pic_small);
                                 photos.models[rrr].set('loc_name',response[1].fql_result_set[0].name);
@@ -128,9 +129,10 @@ window.DimaView = Backbone.View.extend({
                                         }, function (results, status) {
                                             if (status == google.maps.places.PlacesServiceStatus.OK) {
 
-                                                console.log(results[0]);
+
                                                 model.set('address',results[0].vicinity);
-                                                model.trigger('change');
+                                                $(self.el).append((new window.DimaSinglePhotoView({model:model})).render().el);//self.template(photos.models[j].toJSON()));
+                                                //model.trigger('change');
 
                                             }
                                             jQuery(document).trigger('searchRequestsDequeue');
