@@ -240,6 +240,10 @@ $(document).ready(function() {
                     if (status == google.maps.places.PlacesServiceStatus.OK) {
                         view.json = response;
                         view.json.address = results[0];
+                        if (!response.likes) {
+                            response.likes = null;
+                        }
+                        console.log(response);
                         Common.getNextColumn().append(view.render().el);
                         console.log(response)
 
