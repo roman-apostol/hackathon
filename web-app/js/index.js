@@ -64,7 +64,6 @@ $(document).ready(function() {
             FB.getLoginStatus(function(response) {
                 if(response.authResponse){
                     $("#facebook-login").hide();
-                    $("#city-input").show();
                     user.set('id', response.authResponse.userId);
                     //$(".hero-unit").hide();
                 }else{
@@ -79,7 +78,6 @@ $(document).ready(function() {
                 if (response.status == 'connected') {
                     //$(".hero-unit").hide();
                     $("#facebook-login").hide();
-                    $("#city-input").show();
 
                     user.set('id', response.authResponse.userId);
 
@@ -114,7 +112,7 @@ $(document).ready(function() {
         el: $('body'),
 
         events: {
-            "click #blocation"    : "locate",
+            "keypress #city-selector"    : "processEnter",
             "click #glocation"    : "glocate",
             "click .close"    : "close",
             "click #instagr"    : "changeMask",
@@ -138,10 +136,8 @@ $(document).ready(function() {
         },
         locate : function()
         {
-         var city = $("#city").val();
+         var city = $("#city-selector").val();
          this.geocode(city);
-         //$("#locationModal").modal('hide');
-         //   $("#locationModal").hide();
         },
 
         glocate : function()
@@ -179,7 +175,7 @@ $(document).ready(function() {
 
         processEnter: function(e){
             if(e.which == 13) {
-                $('#blocation').click();
+                this.locate();
             }
         },
 

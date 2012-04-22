@@ -74,7 +74,12 @@
     <div class="container content">
         <div class="section no-bg">
             <div class="row">
-                <div class="offset6 span6">
+                <div class="span6">
+                    <form class="search">
+                        <input id="city-selector" type="text" placeholder="Choose city" class="input-medium search-query">
+                    </form>
+                </div>
+                <div class="span6">
                     <div class="inset">
                         <h2>What is Clazzoo?</h2>
                         <p>It's a hack project, built for 24 hours on Facebook hackoton. Based on your and your friends activity on facebook, it suggests places to visit in selected city. By default in your current city</p>
@@ -83,6 +88,7 @@
             </div>
         </div>
         <div class="section">
+            <div id="facebook-login"><h2> Please,  <div class="fb-login-button"   data-scope="email, publish_actions, publish_stream, user_status, friends_status, user_checkins, friends_checkins,friends_photos, user_photos, user_events, friends_events" data-onlogin="window.Auth.fbOnLogin();" style="display:inline;">Login with facebook</div></h2></strong></a></div>
             <div class="row">
                 <div class="span4" id="checkins"></div>
                 <div class="span4" id="places"></div>
@@ -104,60 +110,7 @@
             </ul>
         </div>
     </div>
-    <div class="container-fluid" id = "pzd" >
-        <div class="row-fluid">
-            <div class="span3">
-                <div class="well sidebar-nav">
-                    <ul class="nav nav-list">
-                        <li class="nav-header">Kyiv</li>
-                        <li class="active"><a href="#">Dmytro Voloshyn</a></li>
-                        <li><a href="#">Taras Galkovsky</a></li>
-                        <li><a href="#">paul Tarjan</a></li>
-
-                        <li class="nav-header">Places nearby</li>
-                        <li class="active" id="instagr3"><a href="#">Dmytro Voloshyn</a></li>
-                        <li><a href="#" id="instagr2">Taras Galkovsky</a></li>
-                        <li><a href="#" id="instagr" >paul Tarjan</a></li>
-                    </ul>
-                </div><!--/.well -->
-               <%-- <iframe width="290" height="300" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=50.453732+30.51&amp;aq=&amp;sll=37.0625,-95.677068&amp;sspn=39.644047,92.988281&amp;ie=UTF8&amp;t=p&amp;ll=50.453733,30.509977&amp;spn=0.016395,0.025749&amp;z=14&amp;output=embed"></iframe><br /><small><a href="http://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=50.453732+30.51&amp;aq=&amp;sll=37.0625,-95.677068&amp;sspn=39.644047,92.988281&amp;ie=UTF8&amp;t=p&amp;ll=50.453733,30.509977&amp;spn=0.016395,0.025749&amp;z=14" style="color:#0000FF;text-align:left">View Larger Map</a></small>--%>
-            </div><!--/span-->
-            <div id="map"></div>
-            <div class="span9">
-                <div class="hero-unit" style="text-align: center;">
-                   <span>
-
-                    </span>
-                    <div>
-                        <div id="city-input" style = "display:none;" ><h3>Please enter the city you wanna to visit…</h3><input type="text" id="city" style="display:inline;"/>     <a href="#" id="blocation" class="btn btn-primary" style="display:inline;">Yeh</a></div>
-
-                        <div id="facebook-login"><h3> Please login to start using service: -   <div class="fb-login-button"   data-scope="email, publish_actions, publish_stream, user_status, friends_status, user_checkins, friends_checkins,friends_photos, user_photos, user_events, friends_events" data-onlogin="window.Auth.fbOnLogin();" style="display:inline;">Login with facebook</div></h3></strong></a></div>
-
-</h3>
-                    </div>
-                       <%--<div class="fb-login-button" size="medium" data-show-faces="true" data-width="200" data-max-rows="1" ></div>
-                        --%>
-                </div>
-
-                <div class="row-fluid">
-                    <div class="span3">
-                        <h2>Heading</h2>
-                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                        <p><a class="btn" href="#">View details &raquo;</a></p>
-                    </div><!--/span-->
-                    <!-- <div class="span3" id="checkins"> -->
-
-                    <!-- </div>[>/span<] -->
-                    <!-- <div class="span3" id="places"> -->
-                    <!-- </div>[>/span<] -->
-                    <!-- <div class="span3" id="photos"> -->
-
-                    </div><!--/span-->
-
-                </div><!--/row-->
-            </div><!--/span-->
-        </div><!--/row-->
-
+    <div id="map"></div>
         <hr>
     <div id="map_canvas" style="width:100%; height:100%;top:0px;left:0px;" <%--style="display: none;"--%>></div>
         <div class="footer footer-btm"><div class="fill"><div class="container"><div class="row"><div class="span4 offset4"><p class="centered"> Clazzoo &mdash; Facebook hackaton 2012</p></div></div></div></div></div>
