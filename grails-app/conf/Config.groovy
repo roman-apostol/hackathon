@@ -73,7 +73,6 @@ environments {
 
         fb.app.id="346612582054030"
         fb.app.secret="ecd2ded6ede572c1bdb974d16632f992"
-        grails.serverURL = "http://clazzoo.com"
     }
 }
 
