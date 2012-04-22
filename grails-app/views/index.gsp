@@ -185,7 +185,7 @@
                 <div class="well" style="padding:5px;margin:0px;background:#hhhhhh;">
                 <strong>{! if(ownerName) {if(pic_small)print('<img src='+pic_small+' style="width:30px;"/>'); print(ownerName);} !}
                 <br />
-                in <a href="{{link}}">{! if(loc_name)print(loc_name);!}</a></strong>
+                in <a href="{{link}}">{! if(loc_name)print(loc_name);!}</a>{! if(address)print(address); !}</strong>
                 </div>
                 <%--<a href="{{link}}">{{caption.substr(0,60)}}...[read more?]  </a>--%>
 
