@@ -13,36 +13,24 @@
         window.appId = ${grailsApplication.config.fb.app.id};
     </script>
     <script type="text/template" id="checkin-templ">
-        <div class="well">
-            <div id="panoramio{{id}}" ></div>
+        <div class="entry">
+            <h3><a href="http://facebook.com/{{place.id}}">{{place.name}}</a></h3>
+            <h4>
+                <div id="panoramio{{id}}" ></div>
+            </h4>
 
-            <img src="https://graph.facebook.com/{{from.id}}/picture?type=large" style="width:80px">
-            {! for (var i in tags.data) { !}
-                {!print('<img src=\'https://graph.facebook.com/'); print(tags.data[i].id); print("/picture?type=small' style='width: 40px;'>");!}
+            <h4>Friends</h4>
+            <div class="thumbnails">
+                <a class="thumbnail">
+                    <img src='https://graph.facebook.com/{{from.id}}/picture'>
+                </a>
+                {! for (var i in tags.data) { !}
+                <a class="thumbnail">
+                    <img src='https://graph.facebook.com/{{tags.data[i].id}}/picture'>
+                </a>
                 {! } !}
-
-            <span>
-                <h5><a href="https://facebook.com/{{from.id}}">{{from.name}}</a>
-                {! if (tags.data.length) { !}
-                {! print('with'); !}
-                    {! for (var i in tags.data) { !}
-                    {! if (i > 0) {print ('and');} !}
-                        {!print('<a href=\'https://facebook.com/'); print(tags.data[i].id); print("\' >")!}
-                            {{tags.data[i].name}}
-                        </a>
-                    {! }} !}
-                    </h5> <h5>at <a href="http://facebook.com/{{place.id}}">{{place.name}}</a></h5>
-            </span>
-                <a href="https://facebook.com/{{id}}/">{!if (message) print(message.substr(0,60))!}...  </a>
-            <p>
-                <span style="font-size: 10px;" >{!print(likes.data.length)!} likes</span>
-                <span style="font-size: 10px;" >{! print(comments.data.length)!} messages</span>
-            {! for (var i = comments.data.length-1; i >= Math.max(0, comments.data.length-4); i--) { !}
-                {! print('<img src=\'https://graph.facebook.com/'); print(comments.data[i].from.id); print("/picture?type=small' style='width: 20px;'>"); !}
-                {{comments.data[i].message}}
-            {! } !}
-
-            </p>
+            </div>
+           </p>
         </div>
         <br />
     </script>
@@ -69,7 +57,7 @@
                 <div class="span1">
                     {! if (place.rating) { !}
                         <h4>Rating</h4>
-                        <p>{{place.rating}}</p>
+                        <p>{{place.rating}}/5</p>
                     {! } !}
                 </div>
             </div>
@@ -191,33 +179,29 @@
 
     <script type="text/template" id='photos-tmpl'>
 
-        <div class="well">
-            <div class="masked-image">
-            <img src="{{src_big}}" style = "width:150px;" />
-            <div class="cookie-cutter" style="width:150px;height:{! print(parseInt(150*(src_height/src_width))) !} px;background-size: 150px {! print(parseInt(150*(src_height/src_width)))!}px; ">
-            </div>
-            </div>
-            {! if(like_info.can_like) { !}
-            <iframe src="//www.facebook.com/plugins/like.php?href={{link}}&amp;send=false&amp;layout=button_count&amp;width=100&amp;show_faces=true&amp;action=like&amp;colorscheme=light&amp;font&amp;height=80&amp;appId=367045423345977" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:30px;" allowTransparency="true"></iframe><table class="uiGrid" cellspacing="0" cellpadding="0">
-            <table class="trick">
-                <tbody>
-                <tr><td><div class="thumbs_up hidden_elem"></div>
-                </td><td><div class="undo hidden_elem"></div>
-                </td></tr><tr><td><div class="connect_widget_button_count_nub"><s></s><i></i>
-                </div></td><td>
-                    <div class="connect_widget_button_count_count">{{like_info.like_count}}</div>
-                </td></tr></tbody></table>
-            {!  } !}
-            <p>
-                <%--{{place_id}}--%>
-                <br />
-                <div class="well" style="padding:5px;margin:0px;background:#hhhhhh;">
-                <strong>{! if(ownerName) {if(pic_small)print('<img src='+pic_small+' style="width:30px;"/>'); print(ownerName);} !}
-                <br />
-                in <a href="{{link}}">{! print(loc_name);!}</a>{! if(address)print(address); !}</strong>
+        <div class="entry">
+            <h3>{{loc_name}}</h3>
+            <h4>
+                <img class="photo" src="{{src_big}}"/>
+            </h4>
+            <h4>Address</h4>
+            <p>{{address}}</p>
+            <div class="row">
+                <div class="span3">
+                    <h4>Friends</h4>
+                    <div class="thumbnails">
+                        <a class="thumbnail">
+                            <img src="https://graph.facebook.com/{{uid}}/picture" alt="{{ownerName}}" />
+                        </a>
+                    </div>
                 </div>
-                <%--<a href="{{link}}">{{caption.substr(0,60)}}...[read more?]  </a>--%>
-            </p>
+                <div class="span1">
+                    {! if (like_info.like_count) { !}
+                    <h4>Likes</h4>
+                    <p>{{like_info.like_count}}</p>
+                    {! } !}
+                </div>
+            </div>
         </div>
         <br />
     </script>

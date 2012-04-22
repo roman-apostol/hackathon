@@ -108,6 +108,7 @@ window.DimaView = Backbone.View.extend({
                             {
                                 photos.models[rrr].set('first',false);
 
+                                photos.models[rrr].set('uid',response[0].fql_result_set[0].uid);
                                 photos.models[rrr].set('ownerName',response[0].fql_result_set[0].name);
                                 photos.models[rrr].set('pic_small',response[0].fql_result_set[0].pic_small);
                                 photos.models[rrr].set('loc_name',response[1].fql_result_set[0].name);
