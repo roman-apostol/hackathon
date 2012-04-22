@@ -165,8 +165,6 @@ $(document).ready(function() {
                 }
             },  function(response) {
 
-                console.log(response);
-                //console.log(response[0].fql_result_set);
                 self.checkins.reset(response[0].fql_result_set);
                 self.pages.reset(response[1].fql_result_set);
                 self.taggedUsers.reset(response[2].fql_result_set);
