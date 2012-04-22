@@ -31,7 +31,7 @@ window.DimaView = Backbone.View.extend({
     initialize: function() {
         //$("#locationModal").modal('hide');
 
-        //user.bind("change:id", this.loggedIn, this)
+        user.bind("change:id", this.loggedIn, this)
         geocoder = new google.maps.Geocoder();
         var latlng = new google.maps.LatLng(-34.397, 150.644);
         var myOptions = {
@@ -41,48 +41,8 @@ window.DimaView = Backbone.View.extend({
         }
         map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
     },
-    getPos: function(){
-        var self=this;
-        //console.log("hello");
-        navigator.geolocation.getCurrentPosition(
-            function( position )
-            {
-                window.user.set('latitude',position.coords.latitude);
-                window.user.set('longitude',position.coords.longitude);
 
-                window.user.set('firstName', 'Dima');
-                self.loggedIn();
-                //console.log(position.coords.latitude);
-                //console.log(position.coords.longitude);
-            });
 
-    },
-    geocode: function(address)
-    {
-            var self = this;
-            geocoder.geocode( { 'address': address}, function(results, status) {
-                if (status == google.maps.GeocoderStatus.OK) {
-                    map.setCenter(results[0].geometry.location);
-                    var marker = new google.maps.Marker({
-                        map: map,
-                        position: results[0].geometry.location
-                    });
-
-                    console.log(results[0].geometry.location.$a);
-                    console.log(results[0].geometry.location.Za);
-                    window.user.set('latitude', results[0].geometry.location.Za);
-                    window.user.set('longitude',results[0].geometry.location.$a);
-
-                    window.user.set('firstName', 'Dima');
-
-                    self.loggedIn();
-
-                } else {
-                    alert("Geocode was not successful for the following reason: " + status);
-                }
-            });
-
-    }    ,
     loggedIn: function() {
         //$("#loader").show();
         $("#pzd").show();
@@ -103,7 +63,7 @@ window.DimaView = Backbone.View.extend({
 
             },
             function(response) {
-                //console.log(response[1]);
+                console.log(response[1]);
                 //console.log(response[0]);
                 if(typeof response[1] != 'undefined'){
                     window.photos.reset(response[1].fql_result_set);

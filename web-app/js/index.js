@@ -35,9 +35,6 @@ $(document).ready(function() {
             callback_after = this.reloadPage;
         },
 
-        reloadPage: function() {
-            window.location.reload();
-        },
 
         initFB: function(d){
             var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
@@ -97,7 +94,7 @@ $(document).ready(function() {
         locate : function()
         {
          var city = $("#city").val();
-         window.Dima.geocode(city);
+         this.geocode(city);
          $("#locationModal").modal('hide');
             $("#locationModal").hide();
         },
@@ -105,11 +102,46 @@ $(document).ready(function() {
         glocate : function()
         {
 
-            window.Dima.getPos();
+            this.getPos();
             $("#locationModal").modal('hide');
             $("#locationModal").hide();
         },
+        getPos: function(){
+            var self=this;
+            //console.log("hello");
+            navigator.geolocation.getCurrentPosition(
+                function( position )
+                {
+                    window.user.set('latitude',position.coords.latitude);
+                    window.user.set('longitude',position.coords.longitude);
 
+                    window.user.set('firstName', 'Dima');
+
+                });
+
+        },
+        geocode: function(address)
+        {
+            var self = this;
+            geocoder.geocode( { 'address': address}, function(results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    map.setCenter(results[0].geometry.location);
+                    var marker = new google.maps.Marker({
+                        map: map,
+                        position: results[0].geometry.location
+                    });
+
+                    window.user.set('latitude', results[0].geometry.location.Za);
+                    window.user.set('longitude',results[0].geometry.location.$a);
+
+                    window.user.set('firstName', 'Dima');
+
+                } else {
+                    alert("Geocode was not successful for the following reason: " + status);
+                }
+            });
+
+        }    ,
         msToString: function(milliseconds) {
             var minute = 60 * 1000;
             var hours = Math.floor(milliseconds / (minute * 60));
@@ -152,13 +184,17 @@ $(document).ready(function() {
 
     window.Common = new CommonView;
     window.Auth = new AuthView;
-    window.Roma = new RomaView;
+    window.checkinsView = new CheckinsColumn;
     window.Dima = new DimaView;
     window.Mitya = new MityaView;
 
     window.fbAsyncInit = function(response) {
         window.Auth.fbAsyncInit(response);
     };
+
+    $(window).scroll(function() {
+        window.checkinsView.bottomReached();
+    });
 
 
 
