@@ -66,13 +66,14 @@
                 </div><!--/.well -->
                <%-- <iframe width="290" height="300" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=50.453732+30.51&amp;aq=&amp;sll=37.0625,-95.677068&amp;sspn=39.644047,92.988281&amp;ie=UTF8&amp;t=p&amp;ll=50.453733,30.509977&amp;spn=0.016395,0.025749&amp;z=14&amp;output=embed"></iframe><br /><small><a href="http://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=50.453732+30.51&amp;aq=&amp;sll=37.0625,-95.677068&amp;sspn=39.644047,92.988281&amp;ie=UTF8&amp;t=p&amp;ll=50.453733,30.509977&amp;spn=0.016395,0.025749&amp;z=14" style="color:#0000FF;text-align:left">View Larger Map</a></small>--%>
             </div><!--/span-->
+            <div id="map"></div>
             <div class="span9">
                 <div class="hero-unit" style="text-align: center;">
                    <span>
 
                     </span>
                     <div>
-                       <h3> Please login to start using service: -   <div class="fb-login-button"   data-scope="email, publish_actions, publish_stream, user_status, friends_status, user_checkins, friends_checkins" data-onlogin="window.Auth.fbOnLogin();" style="display:inline;">Login with facebook</div></strong></a>
+<h3> Please login to start using service: -   <div class="fb-login-button"   data-scope="email, publish_actions, publish_stream, user_status, friends_status, user_checkins, friends_checkins,friends_photos, user_photos, user_events, friends_events" data-onlogin="window.Auth.fbOnLogin();" style="display:inline;">Login with facebook</div></strong></a>
                        </h3>
                     </div>
                        <%--<div class="fb-login-button" size="medium" data-show-faces="true" data-width="200" data-max-rows="1" ></div>
@@ -127,11 +128,32 @@
 
 
     <script type="text/template" id='photos-tmpl'>
+
         <div class="well">
-            <p>
-            {{caption.substr(0,60)}}  - {{like_info.like_count}}
-            </p>
+
             <img src="{{src_big}}" style = "width:180px;" />
+
+            {! if(like_info.can_like) { !}
+            <iframe src="//www.facebook.com/plugins/like.php?href={{link}}&amp;send=false&amp;layout=button_count&amp;width=100&amp;show_faces=true&amp;action=like&amp;colorscheme=light&amp;font&amp;height=80&amp;appId=367045423345977" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:30px;" allowTransparency="true"></iframe><table class="uiGrid" cellspacing="0" cellpadding="0">
+            <table class="trick">
+                <tbody>
+                <tr><td><div class="thumbs_up hidden_elem"></div>
+                </td><td><div class="undo hidden_elem"></div>
+                </td></tr><tr><td><div class="connect_widget_button_count_nub"><s></s><i></i>
+                </div></td><td>
+                    <div class="connect_widget_button_count_count">{{like_info.like_count}}</div>
+                </td></tr></tbody></table>
+            {!  } !}
+            <p>
+                {{place_id}}
+                <br />
+                {! if(ownerName) print(ownerName); else print("ovca");!}
+                <a href="{{link}}">{{caption.substr(0,60)}}...[read more?]  </a>
+
+
+
+            </p>
+
         </div>
         <br />
     </script>
@@ -157,5 +179,8 @@
             ref.parentNode.insertBefore(js, ref);
         }(document));
     </script>
+        <script type="text/javascript"
+            src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false">
+        </script>
     </body>
 </html>
