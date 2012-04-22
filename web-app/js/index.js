@@ -88,7 +88,6 @@ $(document).ready(function() {
         } ,
         getPos: function(){
             var self=this;
-            //console.log("hello");
             navigator.geolocation.getCurrentPosition(
                 function( position )
                 {
@@ -120,7 +119,9 @@ $(document).ready(function() {
             "click .close"    : "close",
             "click #instagr"    : "changeMask",
             "click #instagr2"    : "changeMask2",
-            "click #instagr3"    : "changeMask3"
+            "click #instagr3"    : "changeMask3",
+            "keypress #query"   :   "processEnter"
+
         },
         changeMask:function(){
           $(".cookie-cutter").css('background-image', 'url(images/mask3.png)');
@@ -174,6 +175,12 @@ $(document).ready(function() {
                 }
             });
 
+        },
+
+        processEnter: function(e){
+            if(e.which == 13) {
+                $('#blocation').click();
+            }
         },
 
         renderPanoramioPlugin: function(latitude, longitude, id, epsilon) {
