@@ -13,7 +13,7 @@ $(document).ready(function() {
         zoom: 15
     });
 
-    var placesServices = new google.maps.places.PlacesService(map);
+    window.placesServices = new google.maps.places.PlacesService(map);
 
    window.PlaceView = Backbone.View.extend({
         template: _.template($("#place-templ").html()),
@@ -59,7 +59,7 @@ $(document).ready(function() {
                 method: 'fql.multiquery',
                 queries: {
                     query1: 'SELECT uid2 FROM friend WHERE uid1 = me()',
-                    query2: "SELECT eid, uid from event_member WHERE uid IN (SELECT uid2 FROM #query1) AND rsvp_status in ('attending', 'maybe') AND start_time > 0",
+                    query2: "SELECT eid, uid from event_member WHERE uid IN (SELECT uid2 FROM #query1) AND rsvp_status in ('attending', 'maybe') AND start_time > 0 limit 10",
                     query3: 'SELECT eid, name, venue, location FROM event WHERE eid IN ( SELECT eid FROM #query2) ORDER BY start_time'
                 }
             },  function(response) {
