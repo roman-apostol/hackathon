@@ -29,6 +29,7 @@ $(document).ready(function() {
         initialize: function() {
             // FIXME change:id, which id?
             user.bind("change:id", this.loggedIn, this)
+            user.bind("change:latitude", this.loggedIn, this)
         },
 
         loggedIn: function() {
@@ -51,6 +52,12 @@ $(document).ready(function() {
                     if (eventData.venue.longitude
                     && eventData.venue.latitude
                     && eventData.location
+                    && Common.getDistanceBetweenLatLng(
+                        eventData.venue.latitude,
+                        eventData.venue.longitude,
+                        window.user.get('latitude'),
+                        window.user.get('longitude')
+                    ) < Common.RADIUS
                     && !locationProcessed.hasOwnProperty(eventData.location.trim())) {
                         locationProcessed[eventData.location.trim()]  = true;
 
@@ -68,7 +75,7 @@ $(document).ready(function() {
                                         eventData.venue.longitude
                                     ),
                                     rankby: 'distance',
-                                    radius: 50000,
+                                    radius: Common.RADIUS,
                                     keyword: eventData.location
                                 }, function (results, status) {
                                     if (status == google.maps.places.PlacesServiceStatus.OK) {

@@ -93,6 +93,12 @@ $(document).ready(function() {
 
 
     window.CommonView = Backbone.View.extend ({
+        RADIUS: 50000, //meters
+        getDistanceBetweenLatLng: function (lat1, lng1, lat2, lng2) {
+            return 6400000 * Math.acos(
+                Math.sin(lat1) * Math.sin(lat2) + Math.cos(lat1) * Math.cos(lat2) * Math.cos(lng1 - lng2)
+            );
+        },
         el: $('body'),
 
         events: {
