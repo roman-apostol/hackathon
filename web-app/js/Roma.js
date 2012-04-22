@@ -240,7 +240,7 @@ $(document).ready(function() {
                     if (status == google.maps.places.PlacesServiceStatus.OK) {
                         view.json = response;
                         view.json.address = results[0];
-                        $(checkinsView.el).append(view.render().el);
+                        Common.getNextColumn().append(view.render().el);
                         console.log(response)
 
                         Common.renderPanoramioPlugin(response.place.location.latitude, response.place.location.longitude, response.id, Common.epsilon);

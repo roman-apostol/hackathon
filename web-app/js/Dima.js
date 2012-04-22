@@ -131,7 +131,7 @@ window.DimaView = Backbone.View.extend({
 
 
                                                 model.set('address',results[0].vicinity);
-                                                $(self.el).append((new window.DimaSinglePhotoView({model:model})).render().el);//self.template(photos.models[j].toJSON()));
+                                                Common.getNextColumn().append((new window.DimaSinglePhotoView({model:model})).render().el);//self.template(photos.models[j].toJSON()));
                                                 //model.trigger('change');
 
                                             }
