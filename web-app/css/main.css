@@ -87,3 +87,11 @@ z-index:10000;
     height: 150px;
     background: url(/images/mask49.png) no-repeat;
 }
+
+.photoItem{
+    border-style:dashed;
+    border-bottom-color: #808080;
+    border-width:1px;
+}
+
+}
