@@ -39,7 +39,7 @@ window.DimaView = Backbone.View.extend({
 
     loggedIn: function() {
         //$("#loader").show();
-        console.log("work or not");
+
         $("#pzd").show();
         //$("#locationModal").modal('hide');
         var self = this;
@@ -48,8 +48,8 @@ window.DimaView = Backbone.View.extend({
                 method: 'fql.multiquery',
                 queries: {
                     query1: "SELECT id,tagged_uids FROM location_post WHERE author_uid IN (SELECT uid2 FROM friend WHERE uid1=me()) and  timestamp > 1322719200 and ("+
-                    parseInt(window.user.get('latitude'))+"-latitude) < 1 and ("+
-                        parseInt(window.user.get('longitude'))+"-longitude) < 1 limit 300",
+                    parseInt(window.user.get('latitude'))+"-latitude) < 1 and (latitude-"+parseInt(window.user.get('latitude'))+")<1 and ("+
+                        parseInt(window.user.get('longitude'))+"-longitude) < 1 and (longitude-"+parseInt(window.user.get('longitude'))+")<1 limit 300",
 
                     query2:  "SELECT src_height,src_width,place_id,album_object_id,object_id	,link,src_big,caption,like_info,owner FROM photo WHERE object_id IN (SELECT id from #query1 ) order by like_info desc limit 10"
                 }
@@ -58,7 +58,7 @@ window.DimaView = Backbone.View.extend({
 
             },
             function(response) {
-                console.log("What ?" + response[1]);
+                //console.log("What ?" + response[1]);
                 //console.log(response[0]);
                 if(typeof response[1] != 'undefined'){
                     window.photos.reset(response[1].fql_result_set);
@@ -66,6 +66,7 @@ window.DimaView = Backbone.View.extend({
                 else{
 
                 }
+
                 self.render();
                 $("#loader").hide();
             }

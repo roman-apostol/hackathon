@@ -30,13 +30,14 @@ $(document).ready(function() {
 
         initialize: function() {
             geocoder = new google.maps.Geocoder();
-            var latlng = new google.maps.LatLng(-34.397, 150.644);
-            var myOptions = {
-                zoom: 8,
-                center: latlng,
-                mapTypeId: google.maps.MapTypeId.ROADMAP
-            }
-            map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+
+//            var pyrmont = new google.maps.LatLng(-33.8665433, 151.1956316);
+//           map = new google.maps.Map(document.getElementById('map'), {
+//                mapTypeId: google.maps.MapTypeId.ROADMAP,
+//                center: pyrmont,
+//                zoom: 15
+//            });
+
         },
 
 
@@ -62,7 +63,8 @@ $(document).ready(function() {
             var self= this;
             FB.getLoginStatus(function(response) {
                 if(response.authResponse){
-
+                    $("#facebook-login").hide();
+                    $("#city-input").show();
                     user.set('id', response.authResponse.userId);
                     //$(".hero-unit").hide();
                 }else{
@@ -76,6 +78,8 @@ $(document).ready(function() {
             FB.login(function(response) {
                 if (response.status == 'connected') {
                     //$(".hero-unit").hide();
+                    $("#facebook-login").hide();
+                    $("#city-input").show();
 
                     user.set('id', response.authResponse.userId);
 
@@ -95,12 +99,14 @@ $(document).ready(function() {
 
                 });
 
-        },
+        }
     });
 
 
     window.CommonView = Backbone.View.extend ({
         RADIUS: 50000, //meters
+        epsilon: 0.0009,
+
         getDistanceBetweenLatLng: function (lat1, lng1, lat2, lng2) {
             return 6400000 * Math.acos(
                 Math.sin(lat1) * Math.sin(lat2) + Math.cos(lat1) * Math.cos(lat2) * Math.cos(lng1 - lng2)
@@ -111,7 +117,19 @@ $(document).ready(function() {
         events: {
             "click #blocation"    : "locate",
             "click #glocation"    : "glocate",
-            "click .close"    : "close"
+            "click .close"    : "close",
+            "click #instagr"    : "changeMask",
+            "click #instagr2"    : "changeMask2",
+            "click #instagr3"    : "changeMask3"
+        },
+        changeMask:function(){
+          $(".cookie-cutter").css('background-image', 'url(images/mask3.png)');
+        },
+        changeMask2:function(){
+            $(".cookie-cutter").css('background-image', 'url(images/mask2.png)');
+        },
+        changeMask3:function(){
+            $(".cookie-cutter").css('background-image', 'url(images/mask4.png)');
         },
         close: function()
         {
@@ -146,15 +164,34 @@ $(document).ready(function() {
 
                     window.user.set('latitude', results[0].geometry.location.Za);
                     window.user.set('longitude',results[0].geometry.location.$a);
-                    //user.set('id',user.get('id'));
+                    user.set('id',user.get('id'));
                     window.Dima.loggedIn();
+                    window.checkinsView.retrieveInfo();
+                    //window.Mitya.processPlaces();
 
                 } else {
                     alert("Geocode was not successful for the following reason: " + status);
                 }
             });
 
-        }    ,
+        },
+
+        renderPanoramioPlugin: function(latitude, longitude, id, epsilon) {
+            var myRequest = new panoramio.PhotoRequest({
+                'rect': {'sw': {'lat': latitude - epsilon, 'lng': longitude - epsilon },
+                    'ne': {'lat': latitude + epsilon, 'lng': longitude + epsilon }}
+            });
+
+            var myOptions = {
+                'width': 300,
+                'height': 300
+            };
+
+            var widget = new panoramio.PhotoWidget('panoramio'+ id, myRequest, myOptions);
+            widget.setPosition(0);
+            $('.panoramio-wapi-tos').each(function(i,val){$(val).hide()});
+        },
+
         msToString: function(milliseconds) {
             var minute = 60 * 1000;
             var hours = Math.floor(milliseconds / (minute * 60));
@@ -193,7 +230,16 @@ $(document).ready(function() {
             });
         }
 
-    })
+    });
+
+    var latlng = new google.maps.LatLng(-34.397, 150.644);
+    var myOptions = {
+        zoom: 8,
+        center: latlng,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+    map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+
 
     window.Common = new CommonView;
     window.Auth = new AuthView;
