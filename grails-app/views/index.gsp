@@ -5,11 +5,15 @@
 		<title>Clazzoo</title>
         <link href="css/bootstrap.css" rel="stylesheet">
         <link href="css/main.css" rel="stylesheet">
-	</head>
+        <script type="text/javascript"
+                src="http://www.panoramio.com/wapi/wapi.js?v=1">
+        </script>
+
+    </head>
 	<body>
     <script type="text/template" id="checkin-templ">
         <div class="well">
-            <div id="panoramio{{id}}" >PISIA</div>
+            <div id="panoramio{{id}}" ></div>
 
             <img src="https://graph.facebook.com/{{from.id}}/picture?type=large" style="width:80px">
             {! for (var i in tags.data) { !}
@@ -42,6 +46,8 @@
         <br />
     </script>
     <script type="text/template" id="place-templ">
+        <div id="panoramio{{eid}}" ></div>
+
         <ul class="thumbnails">
             <li class="span3">
             <div class="thumbnail">
@@ -220,9 +226,6 @@
     </script>
     <script type="text/javascript"
         src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false">
-    </script>
-    <script type="text/javascript"
-        src="http://www.panoramio.com/wapi/wapi.js?v=1">
     </script>
     </body>
 </html>

@@ -196,7 +196,7 @@ $(document).ready(function() {
         },
 
         checkinRetrieved: function(response) {
-            var epsilon = 0.0009;
+            var epsilon = Common.epsilon;
             checkinsView.numRetrieved += 1;
             if (checkinsView.numRetrieved == checkinsView.numRetrieving) {
                 $('.panoramio-wapi-tos').each(function(i,val){$(val).hide()});
