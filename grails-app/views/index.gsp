@@ -86,9 +86,7 @@
         <div class="section no-bg">
             <div class="row">
                 <div class="span6">
-                    <form class="search">
-                        <input id="city-selector" type="text" placeholder="Choose city" class="input-medium search-query">
-                    </form>
+                    <input id="city-selector" type="text" placeholder="Choose city" class="input-medium search-query">
                 </div>
                 <div class="span6">
                     <div class="inset">

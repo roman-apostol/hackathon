@@ -78,7 +78,6 @@ $(document).ready(function() {
                 if (response.status == 'connected') {
                     //$(".hero-unit").hide();
                     $("#facebook-login").hide();
-                    window.location.reload();
                     user.set('id', response.authResponse.userId);
 
                 }
@@ -142,6 +141,8 @@ $(document).ready(function() {
             this.postsTotal = 0;
             this.eventsTotal = 0;
             var city = $("#city-selector").val();
+            console.log('before geocode');
+            console.log(this);
             this.geocode(city);
             //$("#locationModal").modal('hide');
             //   $("#locationModal").hide();
@@ -171,6 +172,8 @@ $(document).ready(function() {
 
         geocode: function(address)
         {
+            console.log("TEST!!!!");
+            console.log(address);
             var self = this;
             geocoder.geocode( { 'address': address}, function(results, status) {
                 if (status == google.maps.GeocoderStatus.OK) {
