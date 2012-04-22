@@ -67,20 +67,6 @@ window.DimaView = Backbone.View.extend({
 
                 }
 
-                var myRequest = new panoramio.PhotoRequest({
-                    'tag': 'sunset',
-                    'rect': {'sw': {'lat': -30, 'lng': 10.5}, 'ne': {'lat': 50.5, 'lng': 30}}
-                });
-                var widget = new panoramio.PhotoWidget('wapiblock', myRequest, myOptions);
-                var myOptions = {
-                    'width': 300,
-                    'height': 200
-                };
-                widget.setPosition(0);
-
-                console.log(myRequest);
-
-
                 self.render();
                 $("#loader").hide();
             }
@@ -89,18 +75,13 @@ window.DimaView = Backbone.View.extend({
     }     ,
     render: function() {
         var self= this;
-        var searchRequests=[];
         $(self.el).html("");
 
         for(var j =0; j< photos.length && j < 120;j++){
             //console.log(photos.models[j].get('src_big'));
 
             $(self.el).append((new window.DimaSinglePhotoView({model:photos.models[j]})).render().el);//self.template(photos.models[j].toJSON()));
-
-            jQuery(document).bind('searchRequestsDequeue', function () {
-                setTimeout(searchRequests.pop(), 200);
-            });
-
+            //var  newView = window.DimaSinglePhotoView;
             if(photos.models[j].get('first'))
             {
                 var referencer = photos.models[j];
@@ -109,7 +90,7 @@ window.DimaView = Backbone.View.extend({
                         method: 'fql.multiquery',
                         queries: {
                             query1: "SELECT pic_small,uid, name FROM user WHERE uid=" + referencer.get('owner'),
-                            query2: "SELECT name,latitude, longitude FROM place WHERE page_id=" + referencer.get('place_id')
+                            query2: "SELECT name FROM place WHERE page_id=" + referencer.get('place_id')
                         }
                     },
 
@@ -125,9 +106,7 @@ window.DimaView = Backbone.View.extend({
                                 photos.models[rrr].set('loc_name',response[1].fql_result_set[0].name);
                             //console.log(response[0].fql_result_set[0].name);
                                 photos.models[rrr].trigger('change');
-
                             }
-
                         }
 
                     }

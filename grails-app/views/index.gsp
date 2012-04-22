@@ -5,11 +5,11 @@
 		<title>Clazzoo</title>
         <link href="css/bootstrap.css" rel="stylesheet">
         <link href="css/main.css" rel="stylesheet">
-        <meta http-equiv="Access-Control-Allow-Origin" content="*">
 	</head>
 	<body>
     <script type="text/template" id="checkin-templ">
         <div class="well">
+            <div id="panoramio{{id}}" >PISIA</div>
 
             <img src="https://graph.facebook.com/{{from.id}}/picture?type=large" style="width:80px">
             {! for (var i in tags.data) { !}
@@ -59,6 +59,7 @@
         </ul>
     </script>
     <div id="map_canvas" style="width:10%; height:10%" style="display: none;"></div>
+
     <div class="modal" id="locationModal" style="display:none;">
         <div class="modal-header">
             <a class="close" data-dismiss="modal">×</a>
@@ -135,7 +136,7 @@
         </div><!--/row-->
 
         <hr>
-        <div id="wapiblock"></div>
+
         <footer>
             <p> Clazzoo for hackaton 2012(c)</p>
         </footer>
@@ -217,12 +218,11 @@
             ref.parentNode.insertBefore(js, ref);
         }(document));
     </script>
-
-        <script type="text/javascript"
-            src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false">
-        </script>
-            <script type="text/javascript"
-            src="http://www.panoramio.com/wapi/wapi.js?v=1">
-        </script>
+    <script type="text/javascript"
+        src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false">
+    </script>
+    <script type="text/javascript"
+        src="http://www.panoramio.com/wapi/wapi.js?v=1">
+    </script>
     </body>
 </html>
