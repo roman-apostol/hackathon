@@ -28,11 +28,15 @@ $(document).ready(function() {
         el: $('#places'),
         initialize: function() {
             // FIXME change:id, which id?
-            user.bind("change:id", this.loggedIn, this)
+            user.bind("change:id", this.processPlaces, this)
+            // user.bind("change:latitude", this.processPlaces, this)
+            user.bind("change:longitude", this.processPlaces, this)
         },
 
-        loggedIn: function() {
+        processPlaces: function() {
             var addressToken, address = '', searchRequests = [], self = this;
+
+            jQuery(this.el).empty();
             jQuery(document).bind('searchRequestsDequeue', function () {
                 setTimeout(searchRequests.pop(), 100);
             });
@@ -51,6 +55,12 @@ $(document).ready(function() {
                     if (eventData.venue.longitude
                     && eventData.venue.latitude
                     && eventData.location
+                    && Common.getDistanceBetweenLatLng(
+                        eventData.venue.latitude,
+                        eventData.venue.longitude,
+                        window.user.get('latitude'),
+                        window.user.get('longitude')
+                    ) < Common.RADIUS
                     && !locationProcessed.hasOwnProperty(eventData.location.trim())) {
                         locationProcessed[eventData.location.trim()]  = true;
 
@@ -68,7 +78,7 @@ $(document).ready(function() {
                                         eventData.venue.longitude
                                     ),
                                     rankby: 'distance',
-                                    radius: 50000,
+                                    radius: Common.RADIUS,
                                     keyword: eventData.location
                                 }, function (results, status) {
                                     if (status == google.maps.places.PlacesServiceStatus.OK) {
