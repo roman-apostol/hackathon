@@ -248,20 +248,6 @@ $(document).ready(function() {
                         Common.renderPanoramioPlugin(response.place.location.latitude, response.place.location.longitude, response.id, Common.epsilon);
                     };
                 });
-
-
-            /*var myRequest = new panoramio.PhotoRequest({
-                'rect': {'sw': {'lat': response.place.location.latitude - epsilon, 'lng': response.place.location.longitude - epsilon },
-                'ne': {'lat': response.place.location.latitude + epsilon, 'lng': response.place.location.longitude + epsilon }}
-            });
-
-            var myOptions = {
-                'width': 300,
-                'height': 250
-            };
-
-            var widget = new panoramio.PhotoWidget('panoramio'+ response.id, myRequest, myOptions);
-            widget.setPosition(0);*/
         },
 
         bottomReached: function() {

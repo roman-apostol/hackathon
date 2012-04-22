@@ -51,6 +51,7 @@ $(document).ready(function() {
         },
 
         fbAsyncInit: function(response) {
+            var self= this;
             this.getPos();
             FB.init({
                 appId      : 	window.appId,
@@ -60,11 +61,9 @@ $(document).ready(function() {
                 oauth      : true,
                 expires    : 60*24*60
             });
-            var self= this;
             FB.getLoginStatus(function(response) {
                 if(response.authResponse){
                     $("#facebook-login").hide();
-                    $("#city-input").show();
                     user.set('id', response.authResponse.userId);
                     //$(".hero-unit").hide();
                 }else{
@@ -79,7 +78,6 @@ $(document).ready(function() {
                 if (response.status == 'connected') {
                     //$(".hero-unit").hide();
                     $("#facebook-login").hide();
-                    $("#city-input").show();
                     window.location.reload();
                     user.set('id', response.authResponse.userId);
 
@@ -117,7 +115,7 @@ $(document).ready(function() {
         el: $('body'),
 
         events: {
-            "click #blocation"    : "locate",
+            "keypress #city-selector"    : "processEnter",
             "click #glocation"    : "glocate",
             "click .close"    : "close",
             "click #instagr"    : "changeMask",
@@ -127,7 +125,7 @@ $(document).ready(function() {
 
         },
         changeMask:function(){
-          $(".cookie-cutter").css('background-image', 'url(images/mask3.png)');
+            $(".cookie-cutter").css('background-image', 'url(images/mask3.png)');
         },
         changeMask2:function(){
             $(".cookie-cutter").css('background-image', 'url(images/mask2.png)');
@@ -143,10 +141,10 @@ $(document).ready(function() {
             this.checkinsTotal = 0;
             this.postsTotal = 0;
             this.eventsTotal = 0;
-             var city = $("#city").val();
-             this.geocode(city);
-             //$("#locationModal").modal('hide');
-             //   $("#locationModal").hide();
+            var city = $("#city-selector").val();
+            this.geocode(city);
+            //$("#locationModal").modal('hide');
+            //   $("#locationModal").hide();
         },
 
         getNextColumn: function() {
@@ -197,14 +195,14 @@ $(document).ready(function() {
 
         processEnter: function(e){
             if(e.which == 13) {
-                $('#blocation').click();
+                this.locate();
             }
         },
 
         renderPanoramioPlugin: function(latitude, longitude, id, epsilon) {
             var myRequest = new panoramio.PhotoRequest({
                 'rect': {'sw': {'lat': latitude - epsilon, 'lng': longitude - epsilon },
-                    'ne': {'lat': latitude + epsilon, 'lng': longitude + epsilon }}
+                'ne': {'lat': latitude + epsilon, 'lng': longitude + epsilon }}
             });
 
             var myOptions = {
@@ -213,7 +211,7 @@ $(document).ready(function() {
             };
 
             var widget = new panoramio.PhotoWidget('panoramio'+ id, myRequest, myOptions);
-            widget.setPosition(0);
+            widget.setPosition(Math.floor(Math.random()*11));
             $('.panoramio-wapi-tos').each(function(i,val){$(val).hide()});
         },
 

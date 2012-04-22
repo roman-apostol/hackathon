@@ -325,6 +325,10 @@ background: rgba(0, 0, 0, 0.5);
 .entry img.photo {
     width : 300px;
 }
+#facebook-login {
+    vertical-align: middle;
+    margin : auto;
+}
 
 /* Caret divider */
 .caret-container {position:relative;}

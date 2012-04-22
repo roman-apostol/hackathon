@@ -85,7 +85,12 @@
     <div class="container content">
         <div class="section no-bg">
             <div class="row">
-                <div class="offset6 span6">
+                <div class="span6">
+                    <form class="search">
+                        <input id="city-selector" type="text" placeholder="Choose city" class="input-medium search-query">
+                    </form>
+                </div>
+                <div class="span6">
                     <div class="inset">
                         <h2>What is Clazzoo?</h2>
                         <p>It's a hack project, built for 24 hours on Facebook hackoton. Based on your and your friends activity on facebook, it suggests places to visit in selected city. By default in your current city</p>
