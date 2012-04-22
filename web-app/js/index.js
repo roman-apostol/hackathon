@@ -19,7 +19,7 @@ $(document).ready(function() {
     });
 
     window.user = new User;
-    window.placesServices = new google.maps.places.PlacesService(map);
+
     window.AuthView = Backbone.View.extend ({
         el: $('body'),
         model: user,
@@ -80,7 +80,7 @@ $(document).ready(function() {
                     //$(".hero-unit").hide();
                     $("#facebook-login").hide();
                     $("#city-input").show();
-
+                    window.location.reload();
                     user.set('id', response.authResponse.userId);
 
                 }
@@ -265,8 +265,8 @@ $(document).ready(function() {
         center: latlng,
         mapTypeId: google.maps.MapTypeId.ROADMAP
     }
-    map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-
+    window.map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+    window.placesServices = new google.maps.places.PlacesService(window.map);
 
     window.Common = new CommonView;
     window.Auth = new AuthView;
