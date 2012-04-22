@@ -66,6 +66,21 @@ window.DimaView = Backbone.View.extend({
                 else{
 
                 }
+
+                var myRequest = new panoramio.PhotoRequest({
+                    'tag': 'sunset',
+                    'rect': {'sw': {'lat': -30, 'lng': 10.5}, 'ne': {'lat': 50.5, 'lng': 30}}
+                });
+                var widget = new panoramio.PhotoWidget('wapiblock', myRequest, myOptions);
+                var myOptions = {
+                    'width': 300,
+                    'height': 200
+                };
+                widget.setPosition(0);
+
+                console.log(myRequest);
+
+
                 self.render();
                 $("#loader").hide();
             }

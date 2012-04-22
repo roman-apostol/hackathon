@@ -154,12 +154,16 @@ $(document).ready(function() {
             FB.api ({
                 method: 'fql.multiquery',
                 queries: {
-                    query1: 'SELECT post_id, checkin_id, coords, tagged_uids, page_id, message, timestamp, page_id FROM checkin WHERE author_uid in (SELECT uid2 FROM friend WHERE uid1 = me()) ORDER BY timestamp desc',
+                    query1: 'SELECT post_id, checkin_id, coords, tagged_uids, page_id, message, timestamp, page_id FROM checkin WHERE author_uid in (SELECT uid2 FROM friend WHERE uid1 = me()) and ('+
+                    parseInt(window.user.get('latitude'))+'-coords.latitude) < 1 and ('+
+                        parseInt(window.user.get('longitude'))+'-coords.longitude) < 1 ORDER BY timestamp desc',
                     query2: 'SELECT page_id, name, username, description FROM page WHERE page_id in (SELECT page_id FROM #query1)',
                     query3: 'SELECT uid, username, name, pic_small FROM user WHERE uid in (SELECT tagged_uids FROM #query1)',
                     query4: 'SELECT name , pic_big, description, fan_count, website, checkins, location FROM page WHERE page_id IN (SELECT page_id FROM #query1)'
                 }
             },  function(response) {
+
+
                 self.checkins.reset(response[0].fql_result_set);
                 self.pages.reset(response[1].fql_result_set);
                 self.taggedUsers.reset(response[2].fql_result_set);
