@@ -164,8 +164,10 @@ $(document).ready(function() {
 
                     window.user.set('latitude', results[0].geometry.location.Za);
                     window.user.set('longitude',results[0].geometry.location.$a);
-                    //user.set('id',user.get('id'));
+                    user.set('id',user.get('id'));
                     window.Dima.loggedIn();
+                    window.checkinsView.retrieveInfo();
+                    //window.Mitya.processPlaces();
 
                 } else {
                     alert("Geocode was not successful for the following reason: " + status);
