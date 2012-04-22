@@ -28,12 +28,15 @@ $(document).ready(function() {
         el: $('#places'),
         initialize: function() {
             // FIXME change:id, which id?
-            user.bind("change:id", this.loggedIn, this)
-            user.bind("change:latitude", this.loggedIn, this)
+            user.bind("change:id", this.processPlaces, this)
+            // user.bind("change:latitude", this.processPlaces, this)
+            user.bind("change:longitude", this.processPlaces, this)
         },
 
-        loggedIn: function() {
+        processPlaces: function() {
             var addressToken, address = '', searchRequests = [], self = this;
+
+            jQuery(this.el).empty();
             jQuery(document).bind('searchRequestsDequeue', function () {
                 setTimeout(searchRequests.pop(), 100);
             });
