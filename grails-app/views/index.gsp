@@ -81,7 +81,7 @@
 
     </script>
 
-    <div class="hero-unit"><div class="container"><div class="row"><div class="span12 centered"><h1>Best suggestions for places to go</h1><h2> ⋅  Open APIs  ⋅  Client based logic ⋅  Built in 24 hours</h2></div></div></div></div>
+    <div class="hero-unit"><div class="container"><div class="row"><div class="span12 centered"><h1>Best suggestions for places to go</h1><h2> ⋅  Open APIs  ⋅  Client based implementation ⋅  Built in 24 hours</h2></div></div></div></div>
     <div class="container content">
         <div class="section no-bg">
             <div class="row">
