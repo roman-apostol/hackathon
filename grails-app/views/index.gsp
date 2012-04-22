@@ -28,6 +28,23 @@
         </div>
         <br />
     </script>
+    <script type="text/template" id="place-templ">
+        <ul class="thumbnails">
+            <li class="span3">
+            <div class="thumbnail">
+                <img src="{{place.icon}}" alt="">
+                <h5>{{place.name}}</h5>
+                <p><span class="label label-info"> Address:</span>{{place.vicinity}}</p>
+                {! if (place.rating) { !}
+                    <p><span class="label label-info"> Rating:</span>{{place.rating}}</p>
+                {! } !}
+                {! friends.forEach(function(uid){ !}
+                    <img src="https://graph.facebook.com/{{uid}}/picture" alt="" />
+                {! }); !}
+            </div>
+            </li>
+        </ul>
+    </script>
     <div id="map_canvas" style="width:10%; height:10%" style="display: none;"></div>
     <div class="modal" id="locationModal" style="display:none;">
         <div class="modal-header">
@@ -94,10 +111,7 @@
                     <div class="span3" id="checkins">
 
                     </div><!--/span-->
-                    <div class="span3">
-                        <h2>Heading</h2>
-                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                        <p><a class="btn" href="#">View details &raquo;</a></p>
+                    <div class="span3" id="places">
                     </div><!--/span-->
                     <div class="span3" id="photos">
 
