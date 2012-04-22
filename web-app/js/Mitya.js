@@ -6,14 +6,7 @@ $(document).ready(function() {
 
     // FIXME Hack! Map is not displayed, just needed for google.maps.places.PlacesService
     // constructor
-    var pyrmont = new google.maps.LatLng(-33.8665433, 151.1956316);
-    map = new google.maps.Map(document.getElementById('map'), {
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
-        center: pyrmont,
-        zoom: 15
-    });
 
-    window.placesServices = new google.maps.places.PlacesService(map);
 
    window.PlaceView = Backbone.View.extend({
         template: _.template($("#place-templ").html()),
@@ -59,10 +52,11 @@ $(document).ready(function() {
                 method: 'fql.multiquery',
                 queries: {
                     query1: 'SELECT uid2 FROM friend WHERE uid1 = me()',
-                    query2: "SELECT eid, uid from event_member WHERE uid IN (SELECT uid2 FROM #query1) AND rsvp_status in ('attending', 'maybe') AND start_time > 0 limit 10",
+                    query2: "SELECT eid, uid from event_member WHERE uid IN (SELECT uid2 FROM #query1) AND rsvp_status in ('attending', 'maybe') AND start_time > 0",
                     query3: 'SELECT eid, name, venue, location FROM event WHERE eid IN ( SELECT eid FROM #query2) ORDER BY start_time'
                 }
             },  function(response) {
+                var placesServices = new google.maps.places.PlacesService(map);
                 var locationProcessed = [];
                 response[2].fql_result_set.forEach(function(eventData) {
                     var friendsOnEvent = [];
@@ -99,10 +93,13 @@ $(document).ready(function() {
                                         var view = new PlaceView();
                                         view.json = {
                                             place : results[0],
-                                            friends : friendsOnEvent
-                                        }
+                                            friends : friendsOnEvent,
+                                            eid: eventData.eid
+                                        };
                                         $(self.el).append(view.render().el);
-                                    }
+                                        Common.renderPanoramioPlugin(results[0].geometry.location.Za, results[0].geometry.location.$a, eventData.eid, Common.epsilon);
+                                    };
+
                                     jQuery(document).trigger('searchRequestsDequeue');
                                 },
                                 function () {

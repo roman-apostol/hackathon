@@ -17,40 +17,14 @@ hibernate {
 environments {
     development {
         dataSource {
-            dbCreate = "none"
-            url="jdbc:postgresql://localhost:5432/fb"
-            pooled = true
         }
     }
     test {
         dataSource {
-            dbCreate = "none"
-            url="jdbc:postgresql://localhost:5432/fb"
-            pooled = true
         }
     }
     production {
         dataSource {
-            dbCreate = "none"
-            url = "jdbc:postgresql://localhost:5432/odin"
-            password = 'fb'
-            pooled = true
-            properties {
-                maxActive = 50
-                maxIdle = 25
-                minIdle = 10
-                initialSize = 5
-                minEvictableIdleTimeMillis = 60000
-                timeBetweenEvictionRunsMillis = 60000
-                numTestsPerEvictionRun = 3
-                maxWait = 10000
-
-                testOnBorrow = true
-                testWhileIdle = true
-                testOnReturn = false
-
-                validationQuery = "SELECT 1"
-            }
         }
     }
 }
