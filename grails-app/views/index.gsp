@@ -134,38 +134,7 @@
         <div class="row-fluid">
 
             <div id="map"></div>
-            <div class="span9">
-                <div class="hero-unit" style="text-align: center;">
-                   <span>
 
-                    </span>
-                    <div>
-                        <div id="city-input" style = "display:none;" ><h3>Please enter the city you wanna to visit…</h3><input type="text" id="city" style="display:inline;"/>     <a href="#" id="blocation" class="btn btn-primary" style="display:inline;">Yeh</a></div>
-
-                        <div id="facebook-login"><h3> Please login to start using service: -   <div class="fb-login-button"   data-scope="email, publish_actions, publish_stream, user_status, friends_status, user_checkins, friends_checkins,friends_photos, user_photos, user_events, friends_events" data-onlogin="window.Auth.fbOnLogin();" style="display:inline;">Login with facebook</div></h3></strong></a></div>
-
-</h3>
-                    </div>
-                       <%--<div class="fb-login-button" size="medium" data-show-faces="true" data-width="200" data-max-rows="1" ></div>
-                        --%>
-                </div>
-
-                <div class="row-fluid">
-                    <div class="span3">
-                        <h2>Heading</h2>
-                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                        <p><a class="btn" href="#">View details &raquo;</a></p>
-                    </div><!--/span-->
-                    <!-- <div class="span3" id="checkins"> -->
-
-                    <!-- </div>[>/span<] -->
-                    <!-- <div class="span3" id="places"> -->
-                    <!-- </div>[>/span<] -->
-                    <!-- <div class="span3" id="photos"> -->
-
-                    </div><!--/span-->
-
-                </div><!--/row-->
             </div><!--/span-->
         </div><!--/row-->
 

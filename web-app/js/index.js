@@ -148,6 +148,7 @@ $(document).ready(function() {
         },
 
         getNextColumn: function() {
+            $("#loader").hide();
             if (this.checkinsTotal <= this.postsTotal && this.checkinsTotal <= this.eventsTotal) {
                 this.checkinsTotal++;
                 return $('#checkins');
