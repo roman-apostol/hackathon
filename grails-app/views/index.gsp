@@ -59,7 +59,7 @@
         </ul>
     </script>
     <div id="map_canvas" style="width:10%; height:10%" style="display: none;"></div>
-    
+
     <div class="modal" id="locationModal" style="display:none;">
         <div class="modal-header">
             <a class="close" data-dismiss="modal">×</a>
