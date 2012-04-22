@@ -138,6 +138,10 @@ $(document).ready(function() {
         window.Auth.fbAsyncInit(response);
     };
 
+    $(window).scroll(function() {
+        window.checkinsView.bottomReached();
+    });
+
 
 
 });

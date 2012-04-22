@@ -9,14 +9,22 @@
 	<body>
     <script type="text/template" id="checkin-templ">
         <div class="well">
-            <div class="well">
-                <img style = "width:180px;" />
-                <p>
-                    {{message}}
-                </p>
 
-            </div>
-
+            <img src="https://graph.facebook.com/{{from.id}}/picture?type=large" style="width:80px">
+            <span>
+                <h5><a href="https://facebook.com/{{from.id}}">{{from.name}}</a>
+                {! if (tags.data.length) { !}
+                {! print('with'); !}
+                    {! for (var i in tags.data) { !}
+                    {! if (i > 0) {print ('and')}; print(tags.data[i].name); !}
+                {! }} !}
+                    </h5> <h5>at <a href="http://facebook.com/{{place.id}}">{{place.name}}</a></h5>
+            </span>
+                <a href="">{!if (message) print(message.substr(0,60))!}...  </a>
+            <p>
+                <span style="font-size: 10px;" >{!print(likes.data.length)!} likes</span>
+                <span style="font-size: 10px;" >{! print(messages.data.length)!} messages</span>
+            </p>
         </div>
         <br />
     </script>
@@ -64,7 +72,7 @@
 
                     </span>
                     <div>
-                       <h3> Please login to start using service: -   <div class="fb-login-button"   data-scope="email, publish_actions, publish_stream, user_status, friends_status, user_checkins, friends_checkins,friends_photos, user_photos" data-onlogin="window.Auth.fbOnLogin();" style="display:inline;">Login with facebook</div></strong></a>
+                       <h3> Please login to start using service: -   <div class="fb-login-button"   data-scope="email, publish_actions, publish_stream, user_status, friends_status, user_checkins, friends_checkins" data-onlogin="window.Auth.fbOnLogin();" style="display:inline;">Login with facebook</div></strong></a>
                        </h3>
                     </div>
                        <%--<div class="fb-login-button" size="medium" data-show-faces="true" data-width="200" data-max-rows="1" ></div>
@@ -119,32 +127,11 @@
 
 
     <script type="text/template" id='photos-tmpl'>
-
         <div class="well">
-
-            <img src="{{src_big}}" style = "width:180px;" />
-
-            {! if(like_info.can_like) { !}
-            <iframe src="//www.facebook.com/plugins/like.php?href={{link}}&amp;send=false&amp;layout=button_count&amp;width=100&amp;show_faces=true&amp;action=like&amp;colorscheme=light&amp;font&amp;height=80&amp;appId=367045423345977" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:30px;" allowTransparency="true"></iframe><table class="uiGrid" cellspacing="0" cellpadding="0">
-            <table class="trick">
-                <tbody>
-                <tr><td><div class="thumbs_up hidden_elem"></div>
-                </td><td><div class="undo hidden_elem"></div>
-                </td></tr><tr><td><div class="connect_widget_button_count_nub"><s></s><i></i>
-                </div></td><td>
-                    <div class="connect_widget_button_count_count">{{like_info.like_count}}</div>
-                </td></tr></tbody></table>
-            {!  } !}
             <p>
-                {{place_id}}
-                <br />
-                {! if(ownerName) print(ownerName); else print("ovca");!}
-                <a href="{{link}}">{{caption.substr(0,60)}}...[read more?]  </a>
-
-
-
+            {{caption.substr(0,60)}}  - {{like_info.like_count}}
             </p>
-
+            <img src="{{src_big}}" style = "width:180px;" />
         </div>
         <br />
     </script>
