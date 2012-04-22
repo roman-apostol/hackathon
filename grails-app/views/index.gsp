@@ -75,7 +75,7 @@
             </div>
         </div>
     </script>
-    <div id="map_canvas" style="width:10%; height:10%" style="display: none;"></div>
+
     <div id="loader" style="display:none;">
         <div id="loaderBg"></div>
         <div class="loading3">
@@ -171,7 +171,7 @@
         </div><!--/row-->
 
         <hr>
-
+    <div id="map_canvas" style="width:100%; height:100%;top:0px;left:0px;" <%--style="display: none;"--%>></div>
         <div class="footer footer-btm"><div class="fill"><div class="container"><div class="row"><div class="span4 offset4"><p class="centered"> Clazzoo &mdash; Facebook hackaton 2012</p></div></div></div></div></div>
 
     <script src="js/thirdparty/jquery-1.7.1.min.js"></script>
@@ -214,7 +214,7 @@
                 <div class="well" style="padding:5px;margin:0px;background:#hhhhhh;">
                 <strong>{! if(ownerName) {if(pic_small)print('<img src='+pic_small+' style="width:30px;"/>'); print(ownerName);} !}
                 <br />
-                in <a href="{{link}}">{! if(loc_name)print(loc_name);!}</a></strong>
+                in <a href="{{link}}">{! print(loc_name);!}</a>{! if(address)print(address); !}</strong>
                 </div>
                 <%--<a href="{{link}}">{{caption.substr(0,60)}}...[read more?]  </a>--%>
             </p>

@@ -14,7 +14,8 @@ $(document).ready(function() {
             ownerName:null,
             pic_small:null,
             link:null,
-            loc_name:null
+            loc_name:null,
+            address:null
             //lastName: null
         }
 
@@ -40,8 +41,8 @@ window.DimaView = Backbone.View.extend({
     loggedIn: function() {
         //$("#loader").show();
 
-        $("#pzd").show();
-        //$("#locationModal").modal('hide');
+        //$("#pzd").show();
+
         var self = this;
         FB.api(
             {
@@ -74,13 +75,19 @@ window.DimaView = Backbone.View.extend({
        // console.log('dima view');
     }     ,
     render: function() {
-        var self= this;
+        var  searchRequests = [],searchModels = [], self = this;
+
+        jQuery(this.el).empty();
+        jQuery(document).bind('searchRequestsDequeue', function () {
+
+            setTimeout(searchRequests.pop(), 100);
+        });
         $(self.el).html("");
 
         for(var j =0; j< photos.length && j < 120;j++){
             //console.log(photos.models[j].get('src_big'));
 
-            $(self.el).append((new window.DimaSinglePhotoView({model:photos.models[j]})).render().el);//self.template(photos.models[j].toJSON()));
+
             //var  newView = window.DimaSinglePhotoView;
             if(photos.models[j].get('first'))
             {
@@ -90,7 +97,7 @@ window.DimaView = Backbone.View.extend({
                         method: 'fql.multiquery',
                         queries: {
                             query1: "SELECT pic_small,uid, name FROM user WHERE uid=" + referencer.get('owner'),
-                            query2: "SELECT name FROM place WHERE page_id=" + referencer.get('place_id')
+                            query2: "SELECT name,longitude, latitude,page_id FROM place WHERE page_id=" + referencer.get('place_id')
                         }
                     },
 
@@ -104,12 +111,41 @@ window.DimaView = Backbone.View.extend({
                                 photos.models[rrr].set('ownerName',response[0].fql_result_set[0].name);
                                 photos.models[rrr].set('pic_small',response[0].fql_result_set[0].pic_small);
                                 photos.models[rrr].set('loc_name',response[1].fql_result_set[0].name);
-                            //console.log(response[0].fql_result_set[0].name);
-                                photos.models[rrr].trigger('change');
+                                //console.log(response[1].fql_result_set[0].latitude+ " "+response[1].fql_result_set[0].longitude+" "+response[1].fql_result_set[0].page_id);
+
+                                searchModels.push(photos.models[rrr]);
+                                searchRequests.push((function (model) {
+                                    //console.log(model);
+                                    placesServices.search(
+                                        {
+                                            location: new google.maps.LatLng(
+                                                response[1].fql_result_set[0].latitude,
+                                                response[1].fql_result_set[0].longitude
+                                            ),
+                                            //rankby: 'distance'
+                                            radius: 1000//Common.RADIUS
+                                            //keyword: eventData.location
+                                        }, function (results, status) {
+                                            if (status == google.maps.places.PlacesServiceStatus.OK) {
+
+
+                                                model.set('address',results[0].vicinity);
+                                                $(self.el).append((new window.DimaSinglePhotoView({model:model})).render().el);//self.template(photos.models[j].toJSON()));
+                                                //model.trigger('change');
+
+                                            }
+                                            jQuery(document).trigger('searchRequestsDequeue');
+                                        },
+                                        function () {
+                                            jQuery(document).trigger('searchRequestsDequeue');
+                                        }
+                                    );
+                                }).bind(this,photos.models[rrr]));
+
                             }
                         }
-
-                    }
+                        jQuery(document).trigger('searchRequestsDequeue');
+                    }//response
                 );
             }
 

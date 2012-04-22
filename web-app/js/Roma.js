@@ -151,7 +151,7 @@ $(document).ready(function() {
 
         retrieveInfo: function() {
             var self = this;
-            console.log("KKKKK");
+
             $(this.el).html("");
             FB.api ({
                 method: 'fql.multiquery',
