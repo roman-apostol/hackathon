@@ -304,6 +304,9 @@ background: rgba(0, 0, 0, 0.5);
 .thumbnails { margin-left: 0}
 .thumbnail { float: left; margin-right: 8px}
 .entry {margin-bottom: 40px;}
+.entry img.photo {
+    width : 300px;
+}
 
 /* Caret divider */
 .caret-container {position:relative;}

@@ -179,33 +179,29 @@
 
     <script type="text/template" id='photos-tmpl'>
 
-        <div class="well">
-            <div class="masked-image">
-            <img src="{{src_big}}" style = "width:150px;" />
-            <div class="cookie-cutter" style="width:150px;height:{! print(parseInt(150*(src_height/src_width))) !} px;background-size: 150px {! print(parseInt(150*(src_height/src_width)))!}px; ">
-            </div>
-            </div>
-            {! if(like_info.can_like) { !}
-            <iframe src="//www.facebook.com/plugins/like.php?href={{link}}&amp;send=false&amp;layout=button_count&amp;width=100&amp;show_faces=true&amp;action=like&amp;colorscheme=light&amp;font&amp;height=80&amp;appId=367045423345977" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:30px;" allowTransparency="true"></iframe><table class="uiGrid" cellspacing="0" cellpadding="0">
-            <table class="trick">
-                <tbody>
-                <tr><td><div class="thumbs_up hidden_elem"></div>
-                </td><td><div class="undo hidden_elem"></div>
-                </td></tr><tr><td><div class="connect_widget_button_count_nub"><s></s><i></i>
-                </div></td><td>
-                    <div class="connect_widget_button_count_count">{{like_info.like_count}}</div>
-                </td></tr></tbody></table>
-            {!  } !}
-            <p>
-                <%--{{place_id}}--%>
-                <br />
-                <div class="well" style="padding:5px;margin:0px;background:#hhhhhh;">
-                <strong>{! if(ownerName) {if(pic_small)print('<img src='+pic_small+' style="width:30px;"/>'); print(ownerName);} !}
-                <br />
-                in <a href="{{link}}">{! if(loc_name)print(loc_name);!}</a>{! if(address)print(address); !}</strong>
+        <div class="entry">
+            <h3>{{loc_name}}</h3>
+            <h4>
+                <img class="photo" src="{{src_big}}"/>
+            </h4>
+            <h4>Address</h4>
+            <p>{{address}}</p>
+            <div class="row">
+                <div class="span3">
+                    <h4>Friends</h4>
+                    <div class="thumbnails">
+                        <a class="thumbnail">
+                            <img src="{{pic_small}}" alt="{{ownerName}}" />
+                        </a>
+                    </div>
                 </div>
-                <%--<a href="{{link}}">{{caption.substr(0,60)}}...[read more?]  </a>--%>
-            </p>
+                <div class="span1">
+                    {! if (like_info.like_count) { !}
+                    <h4>Likes</h4>
+                    <p>{{like_info.like_count}}</p>
+                    {! } !}
+                </div>
+            </div>
         </div>
         <br />
     </script>
