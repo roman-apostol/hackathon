@@ -32,7 +32,23 @@ window.DimaView = Backbone.View.extend({
 
     initialize: function() {
         //$("#locationModal").modal('hide');
+        $("body").keypress(function(event) {
+            if ( event.which == 49 || event.which == 50 || event.which == 51) {
+                //alert(event.which);
+                event.preventDefault();
+                $('.panoramio-wapi-img').wrap('<div class="masked-image" />');
+                $('.panoramio-wapi-img').css('background-color','white');
+                $('.panoramio-wapi-images').css('background-color','white');
+                $('.panoramio-wapi-img').each(function(index) {
+                    //alert(index + ': ' + $(this).text());
+                    console.log();
+                    $(this).after('<div class="cookie-cutter" style=" position: absolute;left:0; top:0;width:'+$(this).width()+'px;height:'+$(this).height()+'px;background: url(/images/mask'+event.which+'.png) no-repeat;background-size:'+ $(this).width()+'px '+$(this).height()+'px;"></div>');
+                });
 
+            }
+
+
+        });
         user.bind("change:id", this.loggedIn, this)
 
     },

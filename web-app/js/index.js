@@ -80,7 +80,7 @@ $(document).ready(function() {
                     //$(".hero-unit").hide();
                     $("#facebook-login").hide();
                     $("#city-input").show();
-
+                    window.location.reload();
                     user.set('id', response.authResponse.userId);
 
                 }
