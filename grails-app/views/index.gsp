@@ -19,18 +19,28 @@
                 <div id="panoramio{{id}}" ></div>
             </h4>
 
-            <h4>Friends</h4>
-            <div class="thumbnails">
-                <a class="thumbnail">
-                    <img src='https://graph.facebook.com/{{from.id}}/picture'>
-                </a>
-                {! for (var i in tags.data) { !}
-                <a class="thumbnail">
-                    <img src='https://graph.facebook.com/{{tags.data[i].id}}/picture'>
-                </a>
-                {! } !}
+            <div class="row">
+                <div class="span3">
+                    <h4>Friends</h4>
+                    <div class="thumbnails">
+                        <a class="thumbnail">
+                            <img src='https://graph.facebook.com/{{from.id}}/picture'>
+                        </a>
+                        {! for (var i in tags.data) { !}
+                        <a class="thumbnail">
+                            <img src='https://graph.facebook.com/{{tags.data[i].id}}/picture'>
+                        </a>
+                        {! } !}
+                    </div>
+                </div>
+                <div class="span1">
+                    {! if (likes) { !}
+                    <h4>Likes</h4>
+                    <p>{{likes.data.length}}</p>
+                    {! } !}
+                </div>
             </div>
-           </p>
+
         </div>
 
         <br />

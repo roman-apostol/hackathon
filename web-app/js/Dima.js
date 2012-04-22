@@ -143,7 +143,8 @@ window.DimaView = Backbone.View.extend({
                                         }, function (results, status) {
                                             if (status == google.maps.places.PlacesServiceStatus.OK) {
                                                 model.set('address',results[0].vicinity);
-                                                $(self.el).append((new window.DimaSinglePhotoView({model:model})).render().el);//self.template(photos.models[j].toJSON()));
+                                                Common.getNextColumn().append((new window.DimaSinglePhotoView({model:model})).render().el);//self.template(photos.models[j].toJSON()));
+                                                //model.trigger('change');
 
                                             }
                                             jQuery(document).trigger('searchRequestsDequeue');
@@ -195,6 +196,8 @@ window.DimaView = Backbone.View.extend({
         },
 
         render: function() {
+            //$(this.el).html();
+
             $(this.el).html(this.template(this.model.toJSON()));
 
              return this;

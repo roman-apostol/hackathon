@@ -105,6 +105,9 @@ $(document).ready(function() {
     window.CommonView = Backbone.View.extend ({
         RADIUS: 50000, //meters
         epsilon: 0.0009,
+        checkinsTotal: 0,
+        eventsTotal: 0,
+        postsTotal: 0,
 
         getDistanceBetweenLatLng: function (lat1, lng1, lat2, lng2) {
             return 6400000 * Math.acos(
@@ -136,12 +139,27 @@ $(document).ready(function() {
         {
             $("#locationModal").hide();
         },
-        locate : function()
-        {
-         var city = $("#city").val();
-         this.geocode(city);
-         //$("#locationModal").modal('hide');
-         //   $("#locationModal").hide();
+        locate : function() {
+            this.checkinsTotal = 0;
+            this.postsTotal = 0;
+            this.eventsTotal = 0;
+             var city = $("#city").val();
+             this.geocode(city);
+             //$("#locationModal").modal('hide');
+             //   $("#locationModal").hide();
+        },
+
+        getNextColumn: function() {
+            if (this.checkinsTotal <= this.postsTotal && this.checkinsTotal <= this.eventsTotal) {
+                this.checkinsTotal++;
+                return $('#checkins');
+            } else if (this.postsTotal <= this.checkinsTotal && this.postsTotal <= this.eventsTotal) {
+                this.postsTotal++;
+                return $('#photos');
+            } else {
+                this.eventsTotal++;
+                return $('#places');
+            }
         },
 
         glocate : function()
@@ -235,7 +253,9 @@ $(document).ready(function() {
                     }
                 } );
             });
-        }
+        },
+
+
 
     });
 
