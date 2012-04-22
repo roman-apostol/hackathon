@@ -135,9 +135,11 @@
     <script type="text/template" id='photos-tmpl'>
 
         <div class="well">
-
-            <img src="{{src_big}}" style = "width:180px;" />
-
+            <div class="masked-image">
+            <img src="{{src_big}}" style = "width:150px;" />
+            <div class="cookie-cutter">
+            </div>
+            </div>
             {! if(like_info.can_like) { !}
             <iframe src="//www.facebook.com/plugins/like.php?href={{link}}&amp;send=false&amp;layout=button_count&amp;width=100&amp;show_faces=true&amp;action=like&amp;colorscheme=light&amp;font&amp;height=80&amp;appId=367045423345977" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:30px;" allowTransparency="true"></iframe><table class="uiGrid" cellspacing="0" cellpadding="0">
             <table class="trick">
@@ -152,8 +154,10 @@
             <p>
                 <%--{{place_id}}--%>
                 <br />
-                <strong>{! if(ownerName) {print('<img src='+pic_small+' />'); print(ownerName);} !}</strong>
-                <a href="{{link}}">{{caption.substr(0,60)}}...[read more?]  </a>
+                <strong>{! if(ownerName) {if(pic_small)print('<img src='+pic_small+' />'); print(ownerName);} !}
+                <br />
+                in <a href="{{link}}">{! if(loc_name)print(loc_name);!}</a></strong>
+                <%--<a href="{{link}}">{{caption.substr(0,60)}}...[read more?]  </a>--%>
 
 
 

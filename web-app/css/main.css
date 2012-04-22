@@ -74,3 +74,15 @@ z-index:10000;
     margin-top: -35px;
     margin-left: 100px;
 }
+
+.masked-image {
+    position: relative;
+    width: 150px;
+}
+
+.cookie-cutter {
+    position: absolute;
+    left:0; top:0;
+    //width: 150px; height: 150px;
+    background: url(/images/mask2.png) no-repeat;
+}

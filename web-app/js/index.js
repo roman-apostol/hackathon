@@ -29,7 +29,14 @@ $(document).ready(function() {
         },
 
         initialize: function() {
-
+            geocoder = new google.maps.Geocoder();
+            var latlng = new google.maps.LatLng(-34.397, 150.644);
+            var myOptions = {
+                zoom: 8,
+                center: latlng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            }
+            map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
         },
 
 
@@ -108,8 +115,8 @@ $(document).ready(function() {
         {
          var city = $("#city").val();
          this.geocode(city);
-         $("#locationModal").modal('hide');
-            $("#locationModal").hide();
+         //$("#locationModal").modal('hide');
+         //   $("#locationModal").hide();
         },
 
         glocate : function()
@@ -133,8 +140,8 @@ $(document).ready(function() {
 
                     window.user.set('latitude', results[0].geometry.location.Za);
                     window.user.set('longitude',results[0].geometry.location.$a);
-
-                    window.user.set('firstName', 'Dima');
+                    //user.set('id',user.get('id'));
+                    window.Dima.loggedIn();
 
                 } else {
                     alert("Geocode was not successful for the following reason: " + status);

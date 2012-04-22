@@ -13,7 +13,8 @@ $(document).ready(function() {
             like_info:null,
             ownerName:null,
             pic_small:null,
-            link:null
+            link:null,
+            loc_name:null
             //lastName: null
         }
 
@@ -32,20 +33,13 @@ window.DimaView = Backbone.View.extend({
         //$("#locationModal").modal('hide');
 
         user.bind("change:id", this.loggedIn, this)
-        geocoder = new google.maps.Geocoder();
-        var latlng = new google.maps.LatLng(-34.397, 150.644);
-        var myOptions = {
-            zoom: 8,
-            center: latlng,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        }
-        map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+
     },
 
 
     loggedIn: function() {
         //$("#loader").show();
-
+        console.log("work or not");
         $("#pzd").show();
         //$("#locationModal").modal('hide');
         var self = this;
@@ -94,7 +88,8 @@ window.DimaView = Backbone.View.extend({
                     {
                         method: 'fql.multiquery',
                         queries: {
-                            query1: "SELECT pic_small,uid, name FROM user WHERE uid=" + referencer.get('owner')
+                            query1: "SELECT pic_small,uid, name FROM user WHERE uid=" + referencer.get('owner'),
+                            query2: "SELECT name FROM place WHERE page_id=" + referencer.get('place_id')
                         }
                     },
 
@@ -107,7 +102,7 @@ window.DimaView = Backbone.View.extend({
 
                                 photos.models[rrr].set('ownerName',response[0].fql_result_set[0].name);
                                 photos.models[rrr].set('pic_small',response[0].fql_result_set[0].pic_small);
-                                photos.models[rrr].set('ownerName',response[0].fql_result_set[0].name);
+                                photos.models[rrr].set('loc_name',response[1].fql_result_set[0].name);
                             //console.log(response[0].fql_result_set[0].name);
                                 photos.models[rrr].trigger('change');
                             }
