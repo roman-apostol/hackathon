@@ -121,29 +121,32 @@ $(document).ready(function() {
         model: Checkin
     });
 
+
     window.CheckinView = Backbone.View.extend({
         template: _.template($("#checkin-templ").html()),
 
         render: function() {
-            $(this.el).html(this.template(this.model.toJSONFull()));
+            $(this.el).html(this.template(this.json));
             return this;
         }
     });
 
-    window.RomaView = Backbone.View.extend({
+    window.CheckinsColumn = Backbone.View.extend({
         el: $('#checkins'),
         checkins: null,
         pages: null,
         taggedUsers: null,
         checkinsRendered: 0,
+        retrievedAll: false,
+        numRetrieving: 0,
+        numRetrieved: 0,
+        retrieving: false,
 
         initialize: function() {
             user.bind("change:id", this.retrieveInfo, this);
             this.checkins = new CheckinList;
             this.pages = new PageList;
             this.taggedUsers = new UserList;
-
-            this.checkins.bind('reset', this.checkinsReset, this);
         },
 
         retrieveInfo: function() {
@@ -151,7 +154,7 @@ $(document).ready(function() {
             FB.api ({
                 method: 'fql.multiquery',
                 queries: {
-                    query1: 'SELECT post_id, checkin_id, coords, tagged_uids, page_id, message, timestamp, page_id FROM checkin WHERE author_uid in (SELECT uid2 FROM friend WHERE uid1 = me())',
+                    query1: 'SELECT post_id, checkin_id, coords, tagged_uids, page_id, message, timestamp, page_id FROM checkin WHERE author_uid in (SELECT uid2 FROM friend WHERE uid1 = me()) ORDER BY timestamp desc',
                     query2: 'SELECT page_id, name, username, description FROM page WHERE page_id in (SELECT page_id FROM #query1)',
                     query3: 'SELECT uid, username, name, pic_small FROM user WHERE uid in (SELECT tagged_uids FROM #query1)',
                     query4: 'SELECT name , pic_big, description, fan_count, website, checkins, location FROM page WHERE page_id IN (SELECT page_id FROM #query1)'
@@ -167,9 +170,10 @@ $(document).ready(function() {
 
         renderCheckins: function(num) {
             this.checkinsRendered = 0;
+            this.numRetrieving = num;
             var self = this;
 
-            this.checkins.each(function(checkin){
+            this.checkins.each(function(checkin) {
                 if (!checkin.get('rendered') && self.checkinsRendered < num) {
                     self.checkinsRendered++;
                     checkin.set('rendered', true)
@@ -180,22 +184,51 @@ $(document).ready(function() {
                     FB.api(post_id, self.checkinRetrieved);
                 }
             });
+
+            if (this.checkinsRendered < num) {
+                this.retrievedAll = true;
+            }
             this.checkinsRendered = 0;
         },
 
         checkinRetrieved: function(response) {
-            var checkin = new Checkin(response);
-            console.log(checkin);
-            var view = new CheckinView({model: checkin});
+            checkinsView.numRetrieved += 1;
+            if (checkinsView.numRetrieved == checkinsView.numRetrieving) {
+                checkinsView.retrieving = false;
+                checkinsView.numRetrieved = 0;
+                checkinsView.numRetrieving = 0;
+            }
 
+            if(response.message) {
+                var view = new CheckinView;
+                if (!response.likes) {
+                    response.likes = {};
+                    response.likes.data = [];
+                }
+
+                if (!response.messages) {
+                    response.messages = {};
+                    response.messages.data = [];
+                }
+
+                if (!response.tags) {
+                    response.tags = {};
+                    response.tags.data = [];
+                }
+
+                view.json = response;
+                console.log(response);
+                $(checkinsView.el).append(view.render().el);
+            }
         },
 
-        checkinsReset: function() {
-            var self = this;
-            this.checkins.each(function(val) {
-                var view = new CheckinView({model: val});
-                $(self.el).append(view.render().el);
-            });
+        bottomReached: function() {
+            if  (!(this.retrieving) && !(this.retrievedAll)
+                && ($(window).scrollTop() > $(document).height() - $(window).height() - 100)) {
+                this.retrieving = true;
+
+                this.renderCheckins(10);
+            }
         }
     });
 });

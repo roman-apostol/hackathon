@@ -30,20 +30,8 @@ $(document).ready(function() {
 
         initialize: function() {
 
-            navigator.geolocation.getCurrentPosition(
-                function( position )
-                {
-                    window.user.set('latitude',position.coords.latitude);
-                    window.user.set('longitude',position.coords.longitude);
-                });
-
-
-            callback_after = this.reloadPage;
         },
 
-        reloadPage: function() {
-            window.location.reload();
-        },
 
         initFB: function(d){
             var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
@@ -55,7 +43,7 @@ $(document).ready(function() {
         },
 
         fbAsyncInit: function(response) {
-
+            this.getPos();
             FB.init({
                 appId      : 	367045423345977,
                 status     : true,
@@ -64,20 +52,43 @@ $(document).ready(function() {
                 oauth      : true,
                 expires    : 60*24*60
             });
-
+            var self= this;
             FB.getLoginStatus(function(response) {
-                user.set('id', response.authResponse.userId);
+                if(response.authResponse){
+
+                    user.set('id', response.authResponse.userId);
+                    //$(".hero-unit").hide();
+                }else{
+                    self.fbOnLogin();
+                }
+
             }, true);
         },
 
         fbOnLogin: function() {
             FB.login(function(response) {
                 if (response.status == 'connected') {
+                    //$(".hero-unit").hide();
+
                     user.set('id', response.authResponse.userId);
-                    window.user.set('firstName', 'Dima');
+
                 }
             });
-        }
+        } ,
+        getPos: function(){
+            var self=this;
+            //console.log("hello");
+            navigator.geolocation.getCurrentPosition(
+                function( position )
+                {
+                    window.user.set('latitude',position.coords.latitude);
+                    window.user.set('longitude',position.coords.longitude);
+
+                    window.user.set('firstName', 'Dima');
+
+                });
+
+        },
     });
 
 
@@ -85,9 +96,52 @@ $(document).ready(function() {
         el: $('body'),
 
         events: {
-           // "click div [id^=drop-down]"    : "toggleDropDownState"
+            "click #blocation"    : "locate",
+            "click #glocation"    : "glocate",
+            "click .close"    : "close"
+        },
+        close: function()
+        {
+            $("#locationModal").hide();
+        },
+        locate : function()
+        {
+         var city = $("#city").val();
+         this.geocode(city);
+         $("#locationModal").modal('hide');
+            $("#locationModal").hide();
         },
 
+        glocate : function()
+        {
+
+            this.getPos();
+            $("#locationModal").modal('hide');
+            $("#locationModal").hide();
+        },
+
+        geocode: function(address)
+        {
+            var self = this;
+            geocoder.geocode( { 'address': address}, function(results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    map.setCenter(results[0].geometry.location);
+                    var marker = new google.maps.Marker({
+                        map: map,
+                        position: results[0].geometry.location
+                    });
+
+                    window.user.set('latitude', results[0].geometry.location.Za);
+                    window.user.set('longitude',results[0].geometry.location.$a);
+
+                    window.user.set('firstName', 'Dima');
+
+                } else {
+                    alert("Geocode was not successful for the following reason: " + status);
+                }
+            });
+
+        }    ,
         msToString: function(milliseconds) {
             var minute = 60 * 1000;
             var hours = Math.floor(milliseconds / (minute * 60));
@@ -130,13 +184,17 @@ $(document).ready(function() {
 
     window.Common = new CommonView;
     window.Auth = new AuthView;
-    window.Roma = new RomaView;
+    window.checkinsView = new CheckinsColumn;
     window.Dima = new DimaView;
     window.Mitya = new MityaView;
 
     window.fbAsyncInit = function(response) {
         window.Auth.fbAsyncInit(response);
     };
+
+    $(window).scroll(function() {
+        window.checkinsView.bottomReached();
+    });
 
 
 

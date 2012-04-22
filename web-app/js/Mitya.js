@@ -15,7 +15,7 @@ $(document).ready(function() {
 
     var placesServices = new google.maps.places.PlacesService(map);
 
-    window.PlaceView = Backbone.View.extend({
+   window.PlaceView = Backbone.View.extend({
         template: _.template($("#place-templ").html()),
 
         render: function() {

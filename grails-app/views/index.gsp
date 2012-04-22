@@ -9,14 +9,22 @@
 	<body>
     <script type="text/template" id="checkin-templ">
         <div class="well">
-            <div class="well">
-                <img style = "width:180px;" />
-                <p>
-                    SOME GREAT TEXT!
-                </p>
 
-            </div>
-
+            <img src="https://graph.facebook.com/{{from.id}}/picture?type=large" style="width:80px">
+            <span>
+                <h5><a href="https://facebook.com/{{from.id}}">{{from.name}}</a>
+                {! if (tags.data.length) { !}
+                {! print('with'); !}
+                    {! for (var i in tags.data) { !}
+                    {! if (i > 0) {print ('and')}; print(tags.data[i].name); !}
+                {! }} !}
+                    </h5> <h5>at <a href="http://facebook.com/{{place.id}}">{{place.name}}</a></h5>
+            </span>
+                <a href="">{!if (message) print(message.substr(0,60))!}...  </a>
+            <p>
+                <span style="font-size: 10px;" >{!print(likes.data.length)!} likes</span>
+                <span style="font-size: 10px;" >{! print(messages.data.length)!} messages</span>
+            </p>
         </div>
         <br />
     </script>
@@ -37,19 +45,20 @@
             </li>
         </ul>
     </script>
-
+    <div id="map_canvas" style="width:10%; height:10%" style="display: none;"></div>
     <div class="modal" id="locationModal" style="display:none;">
         <div class="modal-header">
             <a class="close" data-dismiss="modal">×</a>
             <h3>Enter your location...</h3>
         </div>
         <div class="modal-body">
-            <p>Please enter the city you wanna to visit…</p>
-        </div>
-        <div class="modal-footer">
+            <h3>Please enter the city you wanna to visit…</h3>
+            
 
-            <a href="#" class="btn btn-primary">Yeh</a>
+            <h3>Or let us take your current position!</h3>
+            <a href="#" id="glocation" class="btn btn-primary">Where am I?</a>
         </div>
+
     </div>
 
     <div id="loader" style="display:none;">
@@ -58,7 +67,7 @@
             Loading
         </div>
     </div>
-    <div class="container-fluid">
+    <div class="container-fluid" id = "pzd" >
         <div class="row-fluid">
             <div class="span3">
                 <div class="well sidebar-nav">
@@ -83,8 +92,11 @@
 
                     </span>
                     <div>
-<h3> Please login to start using service: -   <div class="fb-login-button"   data-scope="email, publish_actions, publish_stream, user_status, friends_status, user_checkins, friends_checkins,friends_photos, user_photos, user_events, friends_events" data-onlogin="window.Auth.fbOnLogin();" style="display:inline;">Login with facebook</div></strong></a>
-                       </h3>
+                        <h3>Please enter the city you wanna to visit…</h3><input type="text" id="city" style="display:inline;"/>     <a href="#" id="blocation" class="btn btn-primary" style="display:inline;">Yeh</a>
+
+                        <h3> Please login to start using service: -   <div class="fb-login-button"   data-scope="email, publish_actions, publish_stream, user_status, friends_status, user_checkins, friends_checkins,friends_photos, user_photos, user_events, friends_events" data-onlogin="window.Auth.fbOnLogin();" style="display:inline;">Login with facebook</div></strong></a>
+
+</h3>
                     </div>
                        <%--<div class="fb-login-button" size="medium" data-show-faces="true" data-width="200" data-max-rows="1" ></div>
                         --%>
@@ -152,9 +164,9 @@
                 </td></tr></tbody></table>
             {!  } !}
             <p>
-                {{place_id}}
+                <%--{{place_id}}--%>
                 <br />
-                {! if(ownerName) print(ownerName); else print("ovca");!}
+                <strong>{! if(ownerName) {print('<img src='+pic_small+' />'); print(ownerName);} !}</strong>
                 <a href="{{link}}">{{caption.substr(0,60)}}...[read more?]  </a>
 
 
