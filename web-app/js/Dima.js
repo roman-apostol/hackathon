@@ -45,6 +45,7 @@ window.DimaView = Backbone.View.extend({
 
     loggedIn: function() {
         //$("#loader").show();
+
         $("#pzd").show();
         //$("#locationModal").modal('hide');
         var self = this;
@@ -63,7 +64,7 @@ window.DimaView = Backbone.View.extend({
 
             },
             function(response) {
-                console.log(response[1]);
+                console.log("What ?" + response[1]);
                 //console.log(response[0]);
                 if(typeof response[1] != 'undefined'){
                     window.photos.reset(response[1].fql_result_set);

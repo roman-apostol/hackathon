@@ -30,9 +30,6 @@ $(document).ready(function() {
 
         initialize: function() {
 
-
-
-            callback_after = this.reloadPage;
         },
 
 
@@ -46,7 +43,7 @@ $(document).ready(function() {
         },
 
         fbAsyncInit: function(response) {
-
+            this.getPos();
             FB.init({
                 appId      : 	367045423345977,
                 status     : true,
@@ -58,6 +55,7 @@ $(document).ready(function() {
             var self= this;
             FB.getLoginStatus(function(response) {
                 if(response.authResponse){
+
                     user.set('id', response.authResponse.userId);
                     $(".hero-unit").hide();
                 }else{
@@ -71,11 +69,26 @@ $(document).ready(function() {
             FB.login(function(response) {
                 if (response.status == 'connected') {
                     $(".hero-unit").hide();
+
                     user.set('id', response.authResponse.userId);
 
                 }
             });
-        }
+        } ,
+        getPos: function(){
+            var self=this;
+            //console.log("hello");
+            navigator.geolocation.getCurrentPosition(
+                function( position )
+                {
+                    window.user.set('latitude',position.coords.latitude);
+                    window.user.set('longitude',position.coords.longitude);
+
+                    window.user.set('firstName', 'Dima');
+
+                });
+
+        },
     });
 
 
@@ -106,20 +119,7 @@ $(document).ready(function() {
             $("#locationModal").modal('hide');
             $("#locationModal").hide();
         },
-        getPos: function(){
-            var self=this;
-            //console.log("hello");
-            navigator.geolocation.getCurrentPosition(
-                function( position )
-                {
-                    window.user.set('latitude',position.coords.latitude);
-                    window.user.set('longitude',position.coords.longitude);
 
-                    window.user.set('firstName', 'Dima');
-
-                });
-
-        },
         geocode: function(address)
         {
             var self = this;

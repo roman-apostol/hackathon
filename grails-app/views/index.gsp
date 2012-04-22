@@ -28,7 +28,7 @@
         </div>
         <br />
     </script>
-    <div id="map_canvas" style="width:10%; height:10%"></div>
+    <div id="map_canvas" style="width:10%; height:10%" style="display: none;"></div>
     <div class="modal" id="locationModal" >
         <div class="modal-header">
             <a class="close" data-dismiss="modal">×</a>
