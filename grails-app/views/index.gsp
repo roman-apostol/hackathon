@@ -11,19 +11,31 @@
         <div class="well">
 
             <img src="https://graph.facebook.com/{{from.id}}/picture?type=large" style="width:80px">
+            {! for (var i in tags.data) { !}
+                {!print('<img src=\'https://graph.facebook.com/'); print(tags.data[i].id); print("/picture?type=small' style='width: 40px;'>");!}
+                {! } !}
+
             <span>
                 <h5><a href="https://facebook.com/{{from.id}}">{{from.name}}</a>
                 {! if (tags.data.length) { !}
                 {! print('with'); !}
                     {! for (var i in tags.data) { !}
-                    {! if (i > 0) {print ('and')}; print(tags.data[i].name); !}
-                {! }} !}
+                    {! if (i > 0) {print ('and');} !}
+                        {!print('<a href=\'https://facebook.com/'); print(tags.data[i].id); print("\' >")!}
+                            {{tags.data[i].name}}
+                        </a>
+                    {! }} !}
                     </h5> <h5>at <a href="http://facebook.com/{{place.id}}">{{place.name}}</a></h5>
             </span>
-                <a href="">{!if (message) print(message.substr(0,60))!}...  </a>
+                <a href="https://facebook.com/{{id}}/">{!if (message) print(message.substr(0,60))!}...  </a>
             <p>
                 <span style="font-size: 10px;" >{!print(likes.data.length)!} likes</span>
-                <span style="font-size: 10px;" >{! print(messages.data.length)!} messages</span>
+                <span style="font-size: 10px;" >{! print(comments.data.length)!} messages</span>
+            {! for (var i = comments.data.length-1; i >= Math.max(0, comments.data.length-4); i--) { !}
+                {! console.log(i); print('<img src=\'https://graph.facebook.com/'); print(comments.data[i].from.id); print("/picture?type=small' style='width: 20px;'>"); !}
+                {{comments.data[i].message}}
+            {! } !}
+
             </p>
         </div>
         <br />

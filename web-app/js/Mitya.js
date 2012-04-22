@@ -27,10 +27,24 @@ $(document).ready(function() {
     window.MityaView = Backbone.View.extend({
         el: $('#places'),
         initialize: function() {
+            var df1 = $.Deferred(), df2 = $.Deferred(), df3 = $.Deferred(),
+                whenAll = $.when(df1, df2, df3), self = this;
             // FIXME change:id, which id?
-            user.bind("change:id", this.processPlaces, this)
-            // user.bind("change:latitude", this.processPlaces, this)
-            user.bind("change:longitude", this.processPlaces, this)
+            user.bind("change:id", function (argument) {
+                df1.resolve();
+            }, this)
+            user.bind("change:longitude", function () {
+                df2.resolve();
+            }, this)
+            user.bind("change:latitude", function () {
+                df3.resolve();
+            }, this)
+            whenAll.done(function () {
+                user.bind("change:longitude", function () {
+                    self.processPlaces();
+                }, this)
+                self.processPlaces();
+            });
         },
 
         processPlaces: function() {

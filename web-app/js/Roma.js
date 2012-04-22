@@ -185,7 +185,7 @@ $(document).ready(function() {
                 }
             });
 
-            if (this.checkinsRendered < num) {
+            if (this.checkinsRendered < num && this.checkins.length > 0) {
                 this.retrievedAll = true;
             }
             this.checkinsRendered = 0;
@@ -199,27 +199,27 @@ $(document).ready(function() {
                 checkinsView.numRetrieving = 0;
             }
 
-            if(response.message) {
-                var view = new CheckinView;
-                if (!response.likes) {
-                    response.likes = {};
-                    response.likes.data = [];
-                }
-
-                if (!response.messages) {
-                    response.messages = {};
-                    response.messages.data = [];
-                }
-
-                if (!response.tags) {
-                    response.tags = {};
-                    response.tags.data = [];
-                }
-
-                view.json = response;
-                console.log(response);
-                $(checkinsView.el).append(view.render().el);
+            var view = new CheckinView;
+            if (!response.message) {
+                response.message = '';
             }
+            if (!response.likes) {
+                response.likes = {};
+                response.likes.data = [];
+            }
+
+            if (!response.comments) {
+                response.comments = {};
+                response.comments.data = [];
+            }
+
+            if (!response.tags) {
+                response.tags = {};
+                response.tags.data = [];
+            }
+
+            view.json = response;
+            $(checkinsView.el).append(view.render().el);
         },
 
         bottomReached: function() {
