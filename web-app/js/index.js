@@ -62,7 +62,8 @@ $(document).ready(function() {
             var self= this;
             FB.getLoginStatus(function(response) {
                 if(response.authResponse){
-
+                    $("#facebook-login").hide();
+                    $("#city-input").show();
                     user.set('id', response.authResponse.userId);
                     //$(".hero-unit").hide();
                 }else{
@@ -76,6 +77,8 @@ $(document).ready(function() {
             FB.login(function(response) {
                 if (response.status == 'connected') {
                     //$(".hero-unit").hide();
+                    $("#facebook-login").hide();
+                    $("#city-input").show();
 
                     user.set('id', response.authResponse.userId);
 
@@ -111,7 +114,19 @@ $(document).ready(function() {
         events: {
             "click #blocation"    : "locate",
             "click #glocation"    : "glocate",
-            "click .close"    : "close"
+            "click .close"    : "close",
+            "click #instagr"    : "changeMask",
+            "click #instagr2"    : "changeMask2",
+            "click #instagr3"    : "changeMask3"
+        },
+        changeMask:function(){
+          $(".cookie-cutter").css('background-image', 'url(images/mask3.png)');
+        },
+        changeMask2:function(){
+            $(".cookie-cutter").css('background-image', 'url(images/mask2.png)');
+        },
+        changeMask3:function(){
+            $(".cookie-cutter").css('background-image', 'url(images/mask4.png)');
         },
         close: function()
         {

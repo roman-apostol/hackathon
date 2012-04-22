@@ -78,9 +78,9 @@
                         <li><a href="#">paul Tarjan</a></li>
 
                         <li class="nav-header">Places nearby</li>
-                        <li class="active"><a href="#">Dmytro Voloshyn</a></li>
-                        <li><a href="#">Taras Galkovsky</a></li>
-                        <li><a href="#">paul Tarjan</a></li>
+                        <li class="active" id="instagr3"><a href="#">Dmytro Voloshyn</a></li>
+                        <li><a href="#" id="instagr2">Taras Galkovsky</a></li>
+                        <li><a href="#" id="instagr" >paul Tarjan</a></li>
                     </ul>
                 </div><!--/.well -->
                <%-- <iframe width="290" height="300" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=50.453732+30.51&amp;aq=&amp;sll=37.0625,-95.677068&amp;sspn=39.644047,92.988281&amp;ie=UTF8&amp;t=p&amp;ll=50.453733,30.509977&amp;spn=0.016395,0.025749&amp;z=14&amp;output=embed"></iframe><br /><small><a href="http://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=50.453732+30.51&amp;aq=&amp;sll=37.0625,-95.677068&amp;sspn=39.644047,92.988281&amp;ie=UTF8&amp;t=p&amp;ll=50.453733,30.509977&amp;spn=0.016395,0.025749&amp;z=14" style="color:#0000FF;text-align:left">View Larger Map</a></small>--%>
@@ -92,9 +92,9 @@
 
                     </span>
                     <div>
-                        <h3>Please enter the city you wanna to visit…</h3><input type="text" id="city" style="display:inline;"/>     <a href="#" id="blocation" class="btn btn-primary" style="display:inline;">Yeh</a>
+                        <div id="city-input" style = "display:none;" ><h3>Please enter the city you wanna to visit…</h3><input type="text" id="city" style="display:inline;"/>     <a href="#" id="blocation" class="btn btn-primary" style="display:inline;">Yeh</a></div>
 
-                        <h3> Please login to start using service: -   <div class="fb-login-button"   data-scope="email, publish_actions, publish_stream, user_status, friends_status, user_checkins, friends_checkins,friends_photos, user_photos, user_events, friends_events" data-onlogin="window.Auth.fbOnLogin();" style="display:inline;">Login with facebook</div></strong></a>
+                        <div id="facebook-login"><h3> Please login to start using service: -   <div class="fb-login-button"   data-scope="email, publish_actions, publish_stream, user_status, friends_status, user_checkins, friends_checkins,friends_photos, user_photos, user_events, friends_events" data-onlogin="window.Auth.fbOnLogin();" style="display:inline;">Login with facebook</div></h3></strong></a></div>
 
 </h3>
                     </div>
@@ -168,9 +168,11 @@
             <p>
                 <%--{{place_id}}--%>
                 <br />
-                <strong>{! if(ownerName) {if(pic_small)print('<img src='+pic_small+' />'); print(ownerName);} !}
+                <div class="well" style="padding:5px;margin:0px;background:#hhhhhh;">
+                <strong>{! if(ownerName) {if(pic_small)print('<img src='+pic_small+' style="width:30px;"/>'); print(ownerName);} !}
                 <br />
                 in <a href="{{link}}">{! if(loc_name)print(loc_name);!}</a></strong>
+                </div>
                 <%--<a href="{{link}}">{{caption.substr(0,60)}}...[read more?]  </a>--%>
 
 
