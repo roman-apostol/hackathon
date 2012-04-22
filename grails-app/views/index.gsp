@@ -32,7 +32,7 @@
                 <span style="font-size: 10px;" >{!print(likes.data.length)!} likes</span>
                 <span style="font-size: 10px;" >{! print(comments.data.length)!} messages</span>
             {! for (var i = comments.data.length-1; i >= Math.max(0, comments.data.length-4); i--) { !}
-                {! console.log(i); print('<img src=\'https://graph.facebook.com/'); print(comments.data[i].from.id); print("/picture?type=small' style='width: 20px;'>"); !}
+                {! print('<img src=\'https://graph.facebook.com/'); print(comments.data[i].from.id); print("/picture?type=small' style='width: 20px;'>"); !}
                 {{comments.data[i].message}}
             {! } !}
 
