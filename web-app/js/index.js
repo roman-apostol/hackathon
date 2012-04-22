@@ -213,7 +213,7 @@ $(document).ready(function() {
             };
 
             var widget = new panoramio.PhotoWidget('panoramio'+ id, myRequest, myOptions);
-            widget.setPosition(0);
+            widget.setPosition(Math.floor(Math.random()*11));
             $('.panoramio-wapi-tos').each(function(i,val){$(val).hide()});
         },
 
