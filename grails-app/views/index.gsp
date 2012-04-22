@@ -1,10 +1,9 @@
 <!doctype html>
 <html>
 	<head>
-		<meta name="layout" content="main"/>
 		<title>Clazzoo</title>
         <link href="css/bootstrap.css" rel="stylesheet">
-        <link href="css/main.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
 	</head>
 	<body>
     <script type="text/template" id="checkin-templ">
@@ -29,42 +28,64 @@
         <br />
     </script>
     <script type="text/template" id="place-templ">
-        <ul class="thumbnails">
-            <li class="span3">
-            <div class="thumbnail">
-                <img src="{{place.icon}}" alt="">
-                <h5>{{place.name}}</h5>
-                <p><span class="label label-info"> Address:</span>{{place.vicinity}}</p>
-                {! if (place.rating) { !}
-                    <p><span class="label label-info"> Rating:</span>{{place.rating}}</p>
-                {! } !}
+        <div class="entry">
+            <%-- <img src="{{place.icon}}" alt=""> --%>
+            <h3>{{place.name}}</h3>
+            <h4>Address</h4>
+            <p>{{place.vicinity}}</p>
+            {! if (place.rating) { !}
+                <h4>Rating</h4>
+                <p>{{place.rating}}</p>
+            {! } !}
+            <h4>Friends</h4>
+            <div class="thumbnails">
                 {! friends.forEach(function(uid){ !}
-                    <img src="https://graph.facebook.com/{{uid}}/picture" alt="" />
+                    <a class="thumbnail">
+                        <img src="https://graph.facebook.com/{{uid}}/picture" alt="" />
+                    </a>
                 {! }); !}
             </div>
-            </li>
-        </ul>
+        </div>
     </script>
     <div id="map_canvas" style="width:10%; height:10%" style="display: none;"></div>
-    <div class="modal" id="locationModal" style="display:none;">
-        <div class="modal-header">
-            <a class="close" data-dismiss="modal">×</a>
-            <h3>Enter your location...</h3>
-        </div>
-        <div class="modal-body">
-            <h3>Please enter the city you wanna to visit…</h3>
-            
-
-            <h3>Or let us take your current position!</h3>
-            <a href="#" id="glocation" class="btn btn-primary">Where am I?</a>
-        </div>
-
-    </div>
-
     <div id="loader" style="display:none;">
         <div id="loaderBg"></div>
         <div class="loading3">
             Loading
+        </div>
+    </div>
+    <div class="hero-unit"><div class="container"><div class="row"><div class="span12 centered"><h1>Best suggestions for places to go</h1><h2> ⋅  Open APIs  ⋅  Client based logic ⋅  Built for 24 hours</h2></div></div></div></div>
+    <div class="container content">
+        <div class="section no-bg">
+            <div class="row">
+                <div class="offset6 span6">
+                    <div class="inset">
+                        <h2>What is Clazzoo?</h2>
+                        <p>It's a hack project, built for 24 hours on Facebook hackoton. Based on your and your friends activity on facebook, it suggests places to visit in selected city. By default in your current city</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section">
+            <div class="row">
+                <div class="span4" id="checkins"></div>
+                <div class="span4" id="places"></div>
+                <div class="span4" id="photos"></div>
+            </div>
+        </div>
+        <div class="section external-apis">
+            <h2>Technologies used by Clazzoo</h2>
+            <ul class="thumbnails thumbnails-gray">
+                <li class="span1">
+                    <a class="thumbnail" href="https://github.com/roman-apostol/hackathon"><img src="/images/api-github.jpg" alt="GitHub"/></a>
+                </li>
+                <li class="span1">
+                    <a class="thumbnail" href="https://developers.facebook.com/docs/reference/javascript/"><img src="/images/api-facebook.jpg" alt="Facebook"/></a>
+                </li>
+                <li class="span1">
+                    <a class="thumbnail" href="https://developers.google.com/maps/documentation/javascript"><img src="/images/api-google-maps.jpg" alt="Google Maps"/></a>
+                </li>
+            </ul>
         </div>
     </div>
     <div class="container-fluid" id = "pzd" >
@@ -108,12 +129,12 @@
                         <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
                         <p><a class="btn" href="#">View details &raquo;</a></p>
                     </div><!--/span-->
-                    <div class="span3" id="checkins">
+                    <!-- <div class="span3" id="checkins"> -->
 
-                    </div><!--/span-->
-                    <div class="span3" id="places">
-                    </div><!--/span-->
-                    <div class="span3" id="photos">
+                    <!-- </div>[>/span<] -->
+                    <!-- <div class="span3" id="places"> -->
+                    <!-- </div>[>/span<] -->
+                    <!-- <div class="span3" id="photos"> -->
 
                     </div><!--/span-->
 
@@ -123,11 +144,8 @@
 
         <hr>
 
-        <footer>
-            <p> Clazzoo for hackaton 2012(c)</p>
-        </footer>
+        <div class="footer footer-btm"><div class="fill"><div class="container"><div class="row"><div class="span4 offset4"><p class="centered"> Clazzoo &mdash; Facebook hackaton 2012</p></div></div></div></div></div>
 
-    </div><!--/.fluid-container-->
     <script src="js/thirdparty/jquery-1.7.1.min.js"></script>
     <script src="js/bootstrap.js"></script>
 
