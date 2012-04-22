@@ -29,7 +29,7 @@
         <br />
     </script>
     <div id="map_canvas" style="width:10%; height:10%" style="display: none;"></div>
-    <div class="modal" id="locationModal" >
+    <div class="modal" id="locationModal" style="display:none;">
         <div class="modal-header">
             <a class="close" data-dismiss="modal">×</a>
             <h3>Enter your location...</h3>
@@ -37,7 +37,7 @@
         <div class="modal-body">
             <h3>Please enter the city you wanna to visit…</h3>
             
-            <input type="text" id="city" style="display:inline;"/>     <a href="#" id="blocation" class="btn btn-primary" style="display:inline;">Yeh</a>
+
             <h3>Or let us take your current position!</h3>
             <a href="#" id="glocation" class="btn btn-primary">Where am I?</a>
         </div>
@@ -75,8 +75,11 @@
 
                     </span>
                     <div>
-<h3> Please login to start using service: -   <div class="fb-login-button"   data-scope="email, publish_actions, publish_stream, user_status, friends_status, user_checkins, friends_checkins,friends_photos, user_photos, user_events, friends_events" data-onlogin="window.Auth.fbOnLogin();" style="display:inline;">Login with facebook</div></strong></a>
-                       </h3>
+                        <h3>Please enter the city you wanna to visit…</h3><input type="text" id="city" style="display:inline;"/>     <a href="#" id="blocation" class="btn btn-primary" style="display:inline;">Yeh</a>
+
+                        <h3> Please login to start using service: -   <div class="fb-login-button"   data-scope="email, publish_actions, publish_stream, user_status, friends_status, user_checkins, friends_checkins,friends_photos, user_photos, user_events, friends_events" data-onlogin="window.Auth.fbOnLogin();" style="display:inline;">Login with facebook</div></strong></a>
+
+</h3>
                     </div>
                        <%--<div class="fb-login-button" size="medium" data-show-faces="true" data-width="200" data-max-rows="1" ></div>
                         --%>

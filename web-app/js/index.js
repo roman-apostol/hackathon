@@ -57,7 +57,7 @@ $(document).ready(function() {
                 if(response.authResponse){
 
                     user.set('id', response.authResponse.userId);
-                    $(".hero-unit").hide();
+                    //$(".hero-unit").hide();
                 }else{
                     self.fbOnLogin();
                 }
@@ -68,7 +68,7 @@ $(document).ready(function() {
         fbOnLogin: function() {
             FB.login(function(response) {
                 if (response.status == 'connected') {
-                    $(".hero-unit").hide();
+                    //$(".hero-unit").hide();
 
                     user.set('id', response.authResponse.userId);
 
