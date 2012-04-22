@@ -11,6 +11,9 @@
 
     </head>
 	<body>
+    <script>
+        window.appId = ${grailsApplication.config.fb.app.id};
+    </script>
     <script type="text/template" id="checkin-templ">
         <div class="well">
             <div id="panoramio{{id}}" ></div>
@@ -163,9 +166,6 @@
 
     <div id="fb-root"></div>
 
-
-
-
     <script type="text/template" id='photos-tmpl'>
 
         <div class="well">
@@ -194,11 +194,7 @@
                 in <a href="{{link}}">{! if(loc_name)print(loc_name);!}</a></strong>
                 </div>
                 <%--<a href="{{link}}">{{caption.substr(0,60)}}...[read more?]  </a>--%>
-
-
-
             </p>
-
         </div>
         <br />
     </script>
