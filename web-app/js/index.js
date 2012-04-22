@@ -184,7 +184,7 @@ $(document).ready(function() {
 
             var myOptions = {
                 'width': 300,
-                'height': 300
+                'height': 250
             };
 
             var widget = new panoramio.PhotoWidget('panoramio'+ id, myRequest, myOptions);

@@ -13,36 +13,24 @@
         window.appId = ${grailsApplication.config.fb.app.id};
     </script>
     <script type="text/template" id="checkin-templ">
-        <div class="well">
-            <div id="panoramio{{id}}" ></div>
+        <div class="entry">
+            <h3><a href="http://facebook.com/{{place.id}}">{{place.name}}</a></h3>
+            <h4>
+                <div id="panoramio{{id}}" ></div>
+            </h4>
 
-            <img src="https://graph.facebook.com/{{from.id}}/picture?type=large" style="width:80px">
-            {! for (var i in tags.data) { !}
-                {!print('<img src=\'https://graph.facebook.com/'); print(tags.data[i].id); print("/picture?type=small' style='width: 40px;'>");!}
+            <h4>Friends</h4>
+            <div class="thumbnails">
+                <a class="thumbnail">
+                    <img src='https://graph.facebook.com/{{from.id}}/picture'>
+                </a>
+                {! for (var i in tags.data) { !}
+                <a class="thumbnail">
+                    <img src='https://graph.facebook.com/{{tags.data[i].id}}/picture'>
+                </a>
                 {! } !}
-
-            <span>
-                <h5><a href="https://facebook.com/{{from.id}}">{{from.name}}</a>
-                {! if (tags.data.length) { !}
-                {! print('with'); !}
-                    {! for (var i in tags.data) { !}
-                    {! if (i > 0) {print ('and');} !}
-                        {!print('<a href=\'https://facebook.com/'); print(tags.data[i].id); print("\' >")!}
-                            {{tags.data[i].name}}
-                        </a>
-                    {! }} !}
-                    </h5> <h5>at <a href="http://facebook.com/{{place.id}}">{{place.name}}</a></h5>
-            </span>
-                <a href="https://facebook.com/{{id}}/">{!if (message) print(message.substr(0,60))!}...  </a>
-            <p>
-                <span style="font-size: 10px;" >{!print(likes.data.length)!} likes</span>
-                <span style="font-size: 10px;" >{! print(comments.data.length)!} messages</span>
-            {! for (var i = comments.data.length-1; i >= Math.max(0, comments.data.length-4); i--) { !}
-                {! print('<img src=\'https://graph.facebook.com/'); print(comments.data[i].from.id); print("/picture?type=small' style='width: 20px;'>"); !}
-                {{comments.data[i].message}}
-            {! } !}
-
-            </p>
+            </div>
+           </p>
         </div>
         <br />
     </script>
@@ -69,7 +57,7 @@
                 <div class="span1">
                     {! if (place.rating) { !}
                         <h4>Rating</h4>
-                        <p>{{place.rating}}</p>
+                        <p>{{place.rating}}/5</p>
                     {! } !}
                 </div>
             </div>
